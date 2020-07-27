@@ -3,11 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{6570C0EF-0969-4F33-A649-A2457AD204BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{6570C0EF-0969-4F33-A649-A2457AD204BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{EEC5E4E7-61C8-450C-8B23-0405DEAB9C0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{EEC5E4E7-61C8-450C-8B23-0405DEAB9C0D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0750F647-885B-4AB6-9881-FACF75AC4754} = {0750F647-885B-4AB6-9881-FACF75AC4754}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{0750F647-885B-4AB6-9881-FACF75AC4754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataClasses", "Shared\DataClasses.csproj", "{0750F647-885B-4AB6-9881-FACF75AC4754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

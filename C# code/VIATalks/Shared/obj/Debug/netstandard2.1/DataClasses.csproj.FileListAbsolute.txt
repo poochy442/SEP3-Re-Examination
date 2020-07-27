@@ -1,0 +1,9 @@
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.1\DataClasses.deps.json
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.1\DataClasses.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.1\DataClasses.pdb
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.csprojAssemblyReference.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.AssemblyInfoInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.AssemblyInfo.cs
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.1\DataClasses.pdb

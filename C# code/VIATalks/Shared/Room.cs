@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shared
+namespace DataClasses
 {
     public class Room
     {

@@ -463,14 +463,14 @@
           "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
-      "Shared/1.0.0": {
+      "DataClasses/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETStandard,Version=v2.1",
         "compile": {
-          "bin/placeholder/Shared.dll": {}
+          "bin/placeholder/DataClasses.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Shared.dll": {}
+          "bin/placeholder/DataClasses.dll": {}
         }
       }
     }
@@ -1520,19 +1520,19 @@
         "version.txt"
       ]
     },
-    "Shared/1.0.0": {
+    "DataClasses/1.0.0": {
       "type": "project",
-      "path": "../Shared/Shared.csproj",
-      "msbuildProject": "../Shared/Shared.csproj"
+      "path": "../Shared/DataClasses.csproj",
+      "msbuildProject": "../Shared/DataClasses.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
+      "DataClasses >= 1.0.0",
       "Microsoft.AspNetCore.Components.WebAssembly >= 3.2.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Authentication >= 3.2.0",
       "Microsoft.AspNetCore.Components.WebAssembly.Build >= 3.2.0",
       "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 3.2.0",
-      "Shared >= 1.0.0",
       "System.Net.Http.Json >= 3.2.0"
     ]
   },
@@ -1566,8 +1566,8 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj": {
-              "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj"
+            "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj": {
+              "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj"
             }
           }
         }

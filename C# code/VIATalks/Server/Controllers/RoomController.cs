@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shared;
+using DataClasses;
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RoomController : ControllerBase
     {
@@ -42,6 +42,7 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> AddRoom(Room room)
         {
+            // TODO: Query Database
             rooms.Add(room);
 
             return CreatedAtAction(nameof(GetRoom), new { name = room.Name }, room);
