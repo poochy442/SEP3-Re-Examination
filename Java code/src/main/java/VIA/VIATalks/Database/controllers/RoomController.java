@@ -1,7 +1,7 @@
-package controllers;
+package VIA.VIATalks.Database.controllers;
 
-import adapter.RoomAdapter;
-import data.Room;
+import VIA.VIATalks.Database.adapter.RoomAdapter;
+import VIA.VIATalks.Database.data.Room;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

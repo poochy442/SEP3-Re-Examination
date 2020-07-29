@@ -1,6 +1,6 @@
-package adapter;
+package VIA.VIATalks.Database.adapter;
 
-import data.Room;
+import VIA.VIATalks.Database.data.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,8 @@ public class RoomAdapter {
         try{
             rooms.add(new Room(
                     counter.incrementAndGet(),
-                    room.name,
+                    room.number,
+                    room.block,
                     room.capacity,
                     room.attending,
                     room.isFull));

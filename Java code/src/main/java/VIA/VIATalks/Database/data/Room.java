@@ -1,18 +1,20 @@
-package data;
+package VIA.VIATalks.Database.data;
 
 public class Room {
 
     // Data to store
     public int id;
-    public String name;
+    public int number;
+    public char block;
     public int capacity;
     public int attending;
     public boolean isFull;
 
     // Constructor
-    public Room(int id, String name, int capacity, int attending, boolean isFull) {
+    public Room(int id, int number, char block, int capacity, int attending, boolean isFull) {
         this.id = id;
-        this.name = name;
+        this.number = number;
+        this.block = block;
         this.capacity = capacity;
         this.attending = attending;
         this.isFull = isFull;
