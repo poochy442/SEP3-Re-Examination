@@ -1,0 +1,51 @@
+﻿@page "/schedule"
+@using DataClasses
+@inject HttpClient Http
+
+<h1>Scheduled events</h1>
+
+@if (events.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Category</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>Capacity</th>
+                <th>Registered Users</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Event e in events)
+            {
+                <tr>
+                    <td>Topic: @e.Topic</td>
+                    <td>Category: @e.Category</td>
+                    <td>Start time: @e.StartTime</td>
+                    <td>End time: @e.EndTime</td>
+                    <td>Capacity: @e.NumberOfSeats</td>
+                    <td>Registered: @e.RegisteredUsers</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<a href="new_event">New Event</a>
+
+@code {
+
+    List<Event> events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        events = await Http.GetFromJsonAsync<List<Event>>("localhost:44338/event");
+    }
+
+}

@@ -17,6 +17,7 @@ namespace Server.Controllers
         public EventController()
         {
             events = new List<Event>();
+            // Mock data
             events.Add(new Event(
                 "How to be cool",
                 "Educational",

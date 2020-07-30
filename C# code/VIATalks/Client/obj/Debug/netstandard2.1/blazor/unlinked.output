@@ -33,6 +33,7 @@ obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.DependencyInjectio
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.Configuration.Abstractions.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.Primitives.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.Configuration.Binder.dll
+obj\Debug\netstandard2.1\blazor\unlinked\DataClasses.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.AspNetCore.Components.Web.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.AspNetCore.Components.Forms.dll
 obj\Debug\netstandard2.1\blazor\unlinked\System.ComponentModel.Annotations.dll
@@ -56,3 +57,4 @@ obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.FileProviders.Abst
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.Extensions.Logging.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Microsoft.JSInterop.WebAssembly.dll
 obj\Debug\netstandard2.1\blazor\unlinked\Client.pdb
+obj\Debug\netstandard2.1\blazor\unlinked\DataClasses.pdb
