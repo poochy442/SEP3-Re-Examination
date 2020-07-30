@@ -26,13 +26,15 @@ public class EventAdapter {
                     event.getUniversityCampus(),
                     event.getEventCategory(),
                     event.getEventName(),
-                    event.getHostName(),
+                    event.getHostFirstName(),
+                    event.getHostLastName(),
                     event.getHostEmail(),
                     event.getHostTelephone(),
                     event.getStartDate(),
                     event.getEndDate(),
                     event.getCampusBlock(),
-                    event.getRoomNumber()
+                    event.getRoomNumber(),
+                    event.getNumberOfSeats()
             ));
             return true;
         }
