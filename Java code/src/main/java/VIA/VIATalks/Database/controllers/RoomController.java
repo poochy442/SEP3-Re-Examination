@@ -2,6 +2,7 @@ package VIA.VIATalks.Database.controllers;
 
 //import VIA.VIATalks.Database.adapter.RoomAdapter;
 import VIA.VIATalks.Database.data.Campus;
+import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Room;
 import VIA.VIATalks.Database.jdbc.RoomHandler;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,13 @@ public class RoomController {
     @PostMapping(path = "/attach")
     public boolean attachRoom(@RequestBody Room room, @RequestParam(value = "eventId")int eventId) {
         return handler.attachRoomToEvent(room, eventId);
+    }
+
+    // PUT: room/update
+    // Updates room for the event in the db
+    @PutMapping(path = "/update")
+    public boolean updateRoom(@RequestBody Event event, @RequestParam(value = "roomId") int roomId) {
+        return handler.updateRoom(event,roomId);
     }
 
 }

@@ -1,10 +1,13 @@
 package VIA.VIATalks.Database.jdbc;
 
+import VIA.VIATalks.Database.data.Event;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IEventCategory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventCategoryHandler {
+public class EventCategoryHandler implements IEventCategory {
     //connection string to db
     private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
 
@@ -15,6 +18,44 @@ public class EventCategoryHandler {
     //Establish connection to db and return it
     private Connection getConnectionToDB() throws SQLException {
         return DriverManager.getConnection(dbConnectionString);
+    }
+
+    public List<String> getAllEventCategories() {
+        List<String> categories = new ArrayList<>(); //holds event categories
+        PreparedStatement statement = null; //statement to execute db query
+        ResultSet rs = null; //result set to get from executing db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            statement = connection.prepareStatement("select * from dbo.EventCategory");
+            rs = statement.executeQuery();
+
+            //go through all categories returned to result set
+            while (rs.next()) {
+
+                //add new category to categories list
+                categories.add(rs.getString("Name"));
+            }
+            return categories;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     public List<String> getEventCategoriesById(List<Integer> categoryIds) {
@@ -87,5 +128,42 @@ public class EventCategoryHandler {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public boolean updateEventCategory(Event event, String category) {
+        int categoryID = getEventCategoryIdByName(category);
+
+        if(categoryID > 0) {
+            PreparedStatement statement = null;
+
+            try (Connection connection = getConnectionToDB()) {
+
+
+                statement = connection.prepareStatement("update dbo.Event set EventCategoryID = ? where EventID = ?");
+                statement.setInt(1, categoryID);
+                statement.setInt(2, event.getId());
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                }
+                else {
+                    throw new Exception("Couldn't find event with id:" + event.getId());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+        return false;
     }
 }

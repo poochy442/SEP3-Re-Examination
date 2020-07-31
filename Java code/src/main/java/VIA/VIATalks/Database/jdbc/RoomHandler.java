@@ -1,13 +1,15 @@
 package VIA.VIATalks.Database.jdbc;
 
 import VIA.VIATalks.Database.data.Campus;
+import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Room;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IRoomHandler;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomHandler {
+public class RoomHandler implements IRoomHandler {
 
     //connection string to db
     private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
@@ -141,5 +143,38 @@ public class RoomHandler {
                     e.printStackTrace();
                 }
         }
+    }
+
+    public boolean updateRoom(Event event, int roomId) {
+            PreparedStatement statement = null; //statement to execute db query
+
+            try (Connection connection = getConnectionToDB()) {
+
+                statement = connection.prepareStatement("update dbo.Event set RoomID = ? where EventID = ?");
+                statement.setInt(1, roomId);
+                statement.setInt(2, event.getId());
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                }
+                else {
+                    throw new Exception("Couldn't find event with id:" + event.getId() + " or roomId:" + roomId + " is wrong");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
+
+
     }
 }

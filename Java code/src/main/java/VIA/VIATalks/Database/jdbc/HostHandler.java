@@ -2,12 +2,13 @@ package VIA.VIATalks.Database.jdbc;
 
 import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Host;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IHostHandler;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HostHandler {
+public class HostHandler implements IHostHandler {
     //connection string to db
     private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
 
@@ -146,6 +147,42 @@ public class HostHandler {
             if (rs != null)
                 try {
                     rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
+    public boolean updateHost(Host host) {
+        PreparedStatement statement = null; //statement to execute db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            statement = connection.prepareStatement("update dbo.Host set FirstName = ?, LastName = ?, Email = ?, Telephone= ? " +
+                    "where HostID = ?");
+            statement.setString(1, host.getHostFirstName());
+            statement.setString(2, host.getHostLastName());
+            statement.setString(3, host.getHostEmail());
+            statement.setString(4, host.getHostTelephone());
+            statement.setInt(5, host.getId());
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+            else {
+                throw new Exception("Couldnt find host with id:" + host.getId());
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

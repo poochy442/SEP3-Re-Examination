@@ -1,12 +1,13 @@
 package VIA.VIATalks.Database.jdbc;
 
 import VIA.VIATalks.Database.data.Event;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.ITicketHandler;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketHandler {
+public class TicketHandler implements ITicketHandler {
     //connection string to db
     private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
 

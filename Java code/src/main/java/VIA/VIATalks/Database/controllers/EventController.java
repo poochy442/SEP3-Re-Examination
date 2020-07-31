@@ -2,6 +2,7 @@ package VIA.VIATalks.Database.controllers;
 
 import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Host;
+import VIA.VIATalks.Database.jdbc.EventCategoryHandler;
 import VIA.VIATalks.Database.jdbc.EventHandler;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.List;
 public class EventController {
 
     private EventHandler handler;  //DAO for events
+    private EventCategoryHandler categoryHandler; //DAO for categories
 
 
     public EventController() {
         handler = new EventHandler();
+        categoryHandler = new EventCategoryHandler();
     }
 
     // GET: event/upcoming
@@ -32,7 +35,7 @@ public class EventController {
     //Returns all event categories stored in db
     @GetMapping(path = "/category/all")
     public List<String> getAllEventCategories() {
-        return handler.getAllEventCategories();
+        return categoryHandler.getAllEventCategories();
     }
 
     // POST: event/create
@@ -40,6 +43,13 @@ public class EventController {
     @PostMapping(path = "/create")
     public boolean createEvent(@RequestBody Event event) {
         return handler.createEvent(event);
+    }
+
+    // PUT: event/category/update
+    // Updates the event category with the passed  event and category name using the db
+    @PutMapping(path = "category/update")
+    public boolean updateEventCategory(@RequestBody Event event, @RequestParam(value = "category") String category) {
+        return categoryHandler.updateEventCategory(event,category);
     }
 
     // PUT: event/update

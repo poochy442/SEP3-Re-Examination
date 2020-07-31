@@ -2,13 +2,14 @@ package VIA.VIATalks.Database.jdbc;
 
 import VIA.VIATalks.Database.data.Campus;
 import VIA.VIATalks.Database.data.University;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IUniversityCampusHandler;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UniversityCampusHandler {
+public class UniversityCampusHandler implements IUniversityCampusHandler {
 
     //connection string to db
     private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";

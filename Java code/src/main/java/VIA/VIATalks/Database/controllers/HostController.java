@@ -22,5 +22,12 @@ public class HostController {
         return handler.attachHostToEvent(host, eventId);
     }
 
+    // PUT: host/update
+    // Updates host with the passed host using the db
+    @PutMapping(path = "/update")
+    public boolean updateHost(@RequestBody Host host) {
+        return handler.updateHost(host);
+    }
+
 
 }
