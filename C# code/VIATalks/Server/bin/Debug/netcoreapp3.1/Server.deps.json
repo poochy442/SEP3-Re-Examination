@@ -24,7 +24,8 @@
     ".NETCoreApp,Version=v3.1": {
       "Server/1.0.0": {
         "dependencies": {
-          "DataClasses": "1.0.0",
+          "Newtonsoft.Json": "12.0.3",
+          "Shared": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -315,12 +316,23 @@
           "Server.dll": {}
         }
       },
-      "DataClasses/1.0.0": {
+      "Newtonsoft.Json/12.0.3": {
         "runtime": {
-          "DataClasses.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
         },
         "compile": {
-          "DataClasses.dll": {}
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Shared/1.0.0": {
+        "runtime": {
+          "Shared.dll": {}
+        },
+        "compile": {
+          "Shared.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -2023,7 +2035,14 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DataClasses/1.0.0": {
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
+    "Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

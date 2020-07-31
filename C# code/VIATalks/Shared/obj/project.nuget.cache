@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "bCSKswK48iSVE1B9FYnvAIhj9KeUtV9HkgAvRRgfLDhBQ7sqSFuP0w3Vph2hrD2BikykzBlGkAuELRhLMfVNNg==",
+  "dgSpecHash": "bp4WH3hEzbpcnN59Xcdz9CKaFqG9Uh31qm6IK7O8FsAAWAoubW1UTMhpAsQ02r+U7tPuqL1JbcDnG+TVl/hy4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

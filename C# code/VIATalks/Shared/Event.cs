@@ -57,7 +57,7 @@ namespace DataClasses
         {
             return "Event Name: " + EventName +
                 "\nCategory: " + Category +
-                "\nStart Time: " + StartTime + 
+                "\nStart Time: " + StartTime +
                 "\nEnd Time: " + EndTime +
                 "\nNumber Of Seats: " + NumberOfSeats +
                 "\nRegistered Users: " + RegisteredUsers +

@@ -1,8 +1,27 @@
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.exe
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.deps.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.dll
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.pdb
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Shared.dll
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Shared.pdb
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.RazorTargetAssemblyInfo.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csproj.CopyComplete
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\staticwebassets\Server.StaticWebAssets.Manifest.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\staticwebassets\Server.StaticWebAssets.xml
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.dll
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.pdb
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\source\repos\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -12,8 +31,14 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netco
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.runtimeconfig.dev.json
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Server.pdb
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\DataClasses.dll
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\DataClasses.pdb
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Shared.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\bin\Debug\netcoreapp3.1\Shared.pdb
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csprojAssemblyReference.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfoInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.AssemblyInfo.cs
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.RazorTargetAssemblyInfo.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\Server.csproj.CopyComplete
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Server\obj\Debug\netcoreapp3.1\staticwebassets\Server.StaticWebAssets.Manifest.cache

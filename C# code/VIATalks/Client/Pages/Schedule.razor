@@ -5,7 +5,7 @@
 
 <h1>Scheduled events</h1>
 
-@if (events.Length > 0)
+@if (events.Count > 0)
 {
     <table>
         <thead>
@@ -41,19 +41,17 @@ else
 <a href="new_event">New Event</a>
 
 @code {
-    static Event testEvent = new Event("How to be cool",
-                "Educational",
-                DateTime.Now,
-                DateTime.Now.AddHours(2),
-                new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"));
-
-    Event[] events = new Event[] {
-        testEvent
-    };
+    List<Event> events = new List<Event>();
 
     protected override async Task OnInitializedAsync()
     {
-        // events = await Http.GetFromJsonAsync<Event[]>("https://localhost:5001/event");
+
+        await GetEvents();
+    }
+
+    private async Task GetEvents()
+    {
+        events = await Http.GetFromJsonAsync<List<Event>>("event");
     }
 
 

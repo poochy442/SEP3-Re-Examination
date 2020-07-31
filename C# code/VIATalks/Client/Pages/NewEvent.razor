@@ -78,7 +78,8 @@
             {
                 rm.EnsureSuccessStatusCode();
                 UriHelper.NavigateTo("schedule");
-            } catch (HttpRequestException e)
+            }
+            catch (HttpRequestException e)
             {
                 Console.WriteLine(e.Message + "\n" + e.StackTrace);
                 // Display error
