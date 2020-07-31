@@ -1,10 +1,12 @@
 package VIA.VIATalks.Database.controllers;
 
-import VIA.VIATalks.Database.adapter.EventAdapter;
 import VIA.VIATalks.Database.data.Event;
+import VIA.VIATalks.Database.data.Host;
 import VIA.VIATalks.Database.jdbc.EventHandler;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -12,44 +14,45 @@ import java.util.List;
 @RequestMapping("/event")
 public class EventController {
 
-    private EventAdapter adapter;  // Adapter for data access
     private EventHandler handler;  //DAO for events
 
 
     public EventController() {
-        adapter = new EventAdapter();
         handler = new EventHandler();
     }
 
-    // GET: event/all
-    // Gets all events from the adapter and returns it
-    @GetMapping(path = "/all")
-    public List<Event> getAllEvents() {
-        //return adapter.getAllEvents();
-        return handler.getAllEvents();
+    // GET: event/upcoming
+    // Gets all upcoming events from the db and returns it
+    @GetMapping(path = "/upcoming")
+    public List<Event> getAllEvents(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime date) {
+        return handler.getUpcomingEvents(date);
+    }
+
+    //GET: event/categoriy/all
+    //Returns all event categories stored in db
+    @GetMapping(path = "/category/all")
+    public List<String> getAllEventCategories() {
+        return handler.getAllEventCategories();
     }
 
     // POST: event/create
-    // Adds the passed event using the adapter and returns whether or not it succeeded
+    // Adds the passed event using the db and returns whether or not it succeeded
     @PostMapping(path = "/create")
     public boolean createEvent(@RequestBody Event event) {
-        //return adapter.addEvent(event);
         return handler.createEvent(event);
     }
 
     // PUT: event/update
-    // Updates the event with the passed id to be equal to the passed event using the adapter
+    // Updates the event with the passed  event using the db
     @PutMapping(path = "/update")
     public boolean updateEvent(@RequestBody Event event) {
-        //return adapter.updateEvent(event);
         return handler.updateEvent(event);
     }
 
     // DELETE: event/delete
-    // Deletes the event with the passed id to be equal to the event's id which to be deleted from the adapter
+    // Deletes the event with the passed id to be equal to the event's id which to be deleted from the db
     @DeleteMapping(path = "/delete")
     public boolean deleteEvent(@RequestParam(value = "id") int id) {
-        //return adapter.deleteEvent(id);
         return handler.deleteEvent(id);
     }
 

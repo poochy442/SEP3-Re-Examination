@@ -1,47 +1,64 @@
 package VIA.VIATalks.Database.data;
 
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
 
     // Data to store
-    public int id;
-    public int number;
-    public char block;
-    public int capacity;
-    public int attending;
-    public boolean isFull;
+    private int id;
+    private int roomNumber;
+    private char block;
+    private int capacity;
+    private double area;
+
 
     // Constructor
-    public Room(int id, int number, char block, int capacity, int attending, boolean isFull) {
+    public Room(int id, int roomNumber, char block, int capacity, double area) {
         this.id = id;
-        this.number = number;
+        this.roomNumber = roomNumber;
         this.block = block;
         this.capacity = capacity;
-        this.attending = attending;
-        this.isFull = isFull;
+        this.area = area;
     }
 
-    public boolean addUser() {
-        if(isFull)  // Check if Room is full before adding user
-            return false;
-
-        // Change variable
-        attending++;
-
-        if(attending >= capacity)   // Check if Room is full after adding user
-            isFull = true;
-
-        return true;
+    //Getters and Setters
+    public int getId() {
+        return id;
     }
 
-    public boolean removeUser(){
-        if(attending <= 0)  // Check if Room is already empty
-            return false;
-
-        // Change variables
-        attending--;
-        isFull = false;
-
-        return true;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public char getBlock() {
+        return block;
+    }
+
+    public void setBlock(char block) {
+        this.block = block;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
 }
