@@ -17,12 +17,7 @@ namespace Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-            builder.Services.AddScoped(sp => new HttpClient
-            {
-                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-            });
+            builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("localhost:5001/") });
 
             builder.Services.AddOidcAuthentication(options =>
             {

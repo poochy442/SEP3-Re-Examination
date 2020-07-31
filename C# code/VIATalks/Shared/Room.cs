@@ -2,6 +2,7 @@
 
 namespace DataClasses
 {
+    [Serializable]
     public class Room
     {
         public String Name { get; set; }    // Room name

@@ -1,15 +1,16 @@
 ﻿@page "/schedule"
 @using DataClasses
+@using System.Net.Http
 @inject HttpClient Http
 
 <h1>Scheduled events</h1>
 
-@if (events.Count > 0)
+@if (events.Length > 0)
 {
     <table>
         <thead>
             <tr>
-                <th>Topic</th>
+                <th>Event Name</th>
                 <th>Category</th>
                 <th>Start time</th>
                 <th>End time</th>
@@ -21,12 +22,12 @@
             @foreach (Event e in events)
             {
                 <tr>
-                    <td>Topic: @e.Topic</td>
-                    <td>Category: @e.Category</td>
-                    <td>Start time: @e.StartTime</td>
-                    <td>End time: @e.EndTime</td>
-                    <td>Capacity: @e.NumberOfSeats</td>
-                    <td>Registered: @e.RegisteredUsers</td>
+                    <td>@e.EventName</td>
+                    <td>@e.Category</td>
+                    <td>@e.StartTime</td>
+                    <td>@e.EndTime</td>
+                    <td>@e.NumberOfSeats</td>
+                    <td>@e.RegisteredUsers</td>
                 </tr>
             }
         </tbody>
@@ -40,12 +41,20 @@ else
 <a href="new_event">New Event</a>
 
 @code {
+    static Event testEvent = new Event("How to be cool",
+                "Educational",
+                DateTime.Now,
+                DateTime.Now.AddHours(2),
+                new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"));
 
-    List<Event> events;
+    Event[] events = new Event[] {
+        testEvent
+    };
 
     protected override async Task OnInitializedAsync()
     {
-        events = await Http.GetFromJsonAsync<List<Event>>("localhost:44338/event");
+        // events = await Http.GetFromJsonAsync<Event[]>("https://localhost:5001/event");
     }
+
 
 }

@@ -3,7 +3,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\Client.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\Client.pdb
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Client.dll
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Net.Http.Json.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Buffers.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\mscorlib.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Threading.Tasks.Extensions.dll
@@ -36,7 +35,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Primitives.dll
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.AspNetCore.Components.Web.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.AspNetCore.Components.Forms.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.ComponentModel.Annotations.dll
@@ -66,7 +64,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\blazor.webassembly.js
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\blazor.boot.json
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Client.dll.gz
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Net.Http.Json.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Buffers.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\mscorlib.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Threading.Tasks.Extensions.dll.gz
@@ -99,7 +96,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Abstractions.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Primitives.dll.gz
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.AspNetCore.Components.Web.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.AspNetCore.Components.Forms.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.ComponentModel.Annotations.dll.gz
@@ -170,9 +166,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.csproj.CoreCompileInputs.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.RazorComponent.input.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\App.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Authentication.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Counter.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\FetchData.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
@@ -185,9 +178,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.TagHelpers.output.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.RazorCoreGenerate.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\App.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\Authentication.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\Counter.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\FetchData.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\Index.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Shared\LoginDisplay.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Shared\MainLayout.razor.g.cs
@@ -198,7 +188,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.RazorTargetAssemblyInfo.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Client.csproj.CopyComplete
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\blazor\unlinked.output
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\99dseBOagY3mzu5Y8Eqm8gRI_o8QbbCp7R2Ew9bQ_5E=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\ZxXy75PYbzJxNfAc-SAP1nUYm4gt1jSaOpFnBb9m85M=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\BaZPMj95_YNe3G4ckTGD6szZFwZeA2MOHn91zTGKDeU=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\TkH6yxFQlTfY8NfznePrCdYJiEVpM9Dqy4Uu4H9qk10=.hash
@@ -231,7 +220,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\ycn-UHLnjC77BNvsurP4mkuYP8oud1oVyfSSlZKMymc=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\D1gbYUWxCdwEKvWRcGQoVikKs0zgWMUenGMDEaDRxrc=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\DG1MjidH81NA50uWH63eWmXLCxt18sJzoF2oXVlyvlY=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\1d98vLxz-49XW6Mx6IB613o5ogbwJ4qLxmqz2D2LPDM=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\v4LhihP26fP-dVajppSCZIrCVbkiALCJgAisyG2cmJQ=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\e0FY4g2Vt8TsXfafkXU2XnUgcYzjzPiFqb3KCylDb74=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\tmnkCmP9OzLUkpQ3LP7PRosi7gt5pyfEZCM6aqAokFI=.hash
@@ -260,7 +248,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\oU0moF6IIkna1pMoSD6Ze63s6aHfjCtUflz7xDmENPg=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\blazor\blazor.boot.json
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Client.dll.gz
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Net.Http.Json.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Buffers.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\mscorlib.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Threading.Tasks.Extensions.dll.gz
@@ -293,7 +280,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Abstractions.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Primitives.dll.gz
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.AspNetCore.Components.Web.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.AspNetCore.Components.Forms.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.ComponentModel.Annotations.dll.gz
@@ -323,7 +309,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\blazor.webassembly.js.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\blazor.boot.json.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Client.dll.br
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Net.Http.Json.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Buffers.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\mscorlib.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Threading.Tasks.Extensions.dll.br
@@ -356,7 +341,6 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Abstractions.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Primitives.dll.br
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.AspNetCore.Components.Web.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.AspNetCore.Components.Forms.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.ComponentModel.Annotations.dll.br
@@ -397,12 +381,22 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Schedule.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\NewEvent.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\Schedule.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\9WWebGaWvO1iVHvwj0R5-Kuc0zmg6KAk0wi8kHF-AjY=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\1PeI4F26_jWEN8xZJP4rdDvFX39orXZ3PfagYEDKHIs=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\SglqHc_4sn1y0asKjYjws0aVrn7-JIgoDIH1IcHN6kM=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\9HLfOS2Pn3Fz-JGuoqrhz2dry2Ke6VoeafG2TbGATb0=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\8uuGh2zb0VS8dlXy7PB8hOWX8PzkeD1SR6cdEnl56BA=.hash
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\DataClasses.dll.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\DataClasses.pdb.gz
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\DataClasses.dll.br
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\DataClasses.pdb.br
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Net.Http.Json.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\System.Net.Http.Json.dll.gz
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\99dseBOagY3mzu5Y8Eqm8gRI_o8QbbCp7R2Ew9bQ_5E=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Net.Http.Json.dll.gz
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\System.Net.Http.Json.dll.br
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\bin\Debug\netstandard2.1\wwwroot\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.gz
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\1d98vLxz-49XW6Mx6IB613o5ogbwJ4qLxmqz2D2LPDM=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.gz
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\compressed\_framework\_bin\Microsoft.Extensions.Configuration.Binder.dll.br
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\z3ID8b8lGTpn4lDMhKYktb2K1kyJAWm3Oo8GQ8hTABg=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\aPTlcefBuiy3QADIXT2f-WJa_EkaKZ8B0tC7wFKPISM=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\LBI-T7vjWox8ymFzvC1kkmj4mNoOnuQwtirALkMwd5A=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\ul8t_sCe6jD_TbF-GZcZ7JUN1TEqgoCaEv-wI8tc88g=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\IAmETEt7lswf6EKkbZRq67e61KwJVZarXATzR9JeJow=.hash
