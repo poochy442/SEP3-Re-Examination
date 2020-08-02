@@ -57,4 +57,42 @@ public class ScheduleHandler implements IScheduleHandler {
                 }
         }
     }
+<<<<<<< HEAD
+=======
+
+    public boolean attachScheduleToPendingEvent(Campus campus, int eventId) {
+        PreparedStatement statement = null; //statement to execute db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            if(universityCampusHandler.campusExistsOnAddress(campus.getAddress())) {
+                statement = connection.prepareStatement("update PendingEvent set ScheduleID = (select ScheduleID from Campus where Address = ?) where PendingEventID = ?");
+                statement.setString(1, campus.getAddress());
+                statement.setInt(2, eventId);
+
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                }
+                else {
+                    throw new Exception("Couldn't find existing Campus address:" + campus.getAddress() + " or pending eventId is wrong:" + eventId);
+                }
+            }
+            throw new Exception("Campus cannot be found with such an address:" + campus.getAddress());
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+>>>>>>> Java
 }

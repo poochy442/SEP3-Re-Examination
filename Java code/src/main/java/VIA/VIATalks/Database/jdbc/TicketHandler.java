@@ -20,7 +20,11 @@ public class TicketHandler implements ITicketHandler {
         return DriverManager.getConnection(dbConnectionString);
     }
 
+<<<<<<< HEAD
     public List<Integer> getTicketsCountForEvents(List<Event> events) {
+=======
+    /*public List<Integer> getTicketsCountForEvents(List<Event> events) {
+>>>>>>> Java
         List<Integer> ticketsCount = new ArrayList<>(); //holds ticket count for events
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -61,5 +65,9 @@ public class TicketHandler implements ITicketHandler {
                     e.printStackTrace();
                 }
         }
+<<<<<<< HEAD
     }
+=======
+    }*/
+>>>>>>> Java
 }

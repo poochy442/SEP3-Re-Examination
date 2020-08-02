@@ -66,6 +66,7 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
     }
 
     public List<Campus> getCampusesForUniversity(University university) {
+<<<<<<< HEAD
         List<Campus> campuses = new ArrayList<>(); //holds campuses
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -106,6 +107,53 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
                     e.printStackTrace();
                 }
         }
+=======
+
+        //checking if university is not null
+        if(university != null) {
+            List<Campus> campuses = new ArrayList<>(); //holds campuses
+            PreparedStatement statement = null; //statement to execute db query
+            ResultSet rs = null; //result set to get from executing db query
+
+            try (Connection connection = getConnectionToDB()) {
+
+                statement = connection.prepareStatement("select * from dbo.Campus where UniversityID = ?");
+                statement.setInt(1,university.getId());
+                rs = statement.executeQuery();
+
+                //go through all campuses returned to result set
+                while (rs.next()) {
+                    int id = rs.getInt("CampusID");
+                    String city = rs.getString("City");
+                    int postalCode = rs.getInt("PostalCode");
+                    String address = rs.getString("Address");
+
+                    //add new campus to campuses list
+                    campuses.add(new Campus(id,city,postalCode,address));
+                }
+                return campuses;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                if (rs != null)
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }
+        return null;
+>>>>>>> Java
     }
 
     public boolean campusExistsOnAddress(String address) {

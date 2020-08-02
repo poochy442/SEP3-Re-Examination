@@ -33,6 +33,16 @@ public class EventController {
         return eventHandler.getUpcomingEvents(date);
     }
 
+<<<<<<< HEAD
+=======
+    //GET: event/request/all
+    //Returns all pending events from db
+    @GetMapping(path = "/request/all")
+    public List<Event> getAllRequestedEvents() {
+        return eventHandler.getAllRequestedEvents();
+    }
+
+>>>>>>> Java
     //GET: event/categoriy/all
     //Returns all event categories stored in db
     @GetMapping(path = "/category/all")
@@ -56,6 +66,26 @@ public class EventController {
         return eventHandler.createEvent(event);
     }
 
+<<<<<<< HEAD
+=======
+    // POST: event/create
+    // Adds the passed event using the db and returns whether or not it succeeded
+    @PostMapping(path = "/request")
+    public boolean requestEvent(@RequestBody Event event) {
+        return eventHandler.requestEvent(event);
+    }
+
+    //POST: event/request/accept
+    //Deletes pending event and adds its info + attached room from C# to db
+    @PostMapping(path = "request/accept")
+    public boolean requestAccept(@RequestBody Event event) {
+        if(eventHandler.createEvent(event)) {
+            return eventHandler.deletePendingEvent(event.getId());
+        }
+        return false;
+    }
+
+>>>>>>> Java
     // PUT: event/category/update
     // Updates the event category with the passed  event and category name using the db
     @PutMapping(path = "category/update")
@@ -77,4 +107,14 @@ public class EventController {
         return eventHandler.deleteEvent(id);
     }
 
+<<<<<<< HEAD
+=======
+    // DELETE: event/pending/delete
+    // Deletes the pending event with the passed id to be equal to the event's id which to be deleted from the db
+    @DeleteMapping(path = "/pending/delete")
+    public boolean deletePendingEvent(@RequestParam(value = "id") int id) {
+        return eventHandler.deletePendingEvent(id);
+    }
+
+>>>>>>> Java
 }

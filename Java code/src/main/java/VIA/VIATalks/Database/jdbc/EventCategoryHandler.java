@@ -60,7 +60,11 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         }
     }
 
+<<<<<<< HEAD
     public List<String> getEventCategoriesById(List<Integer> categoryIds) {
+=======
+    /*public List<String> getEventCategoriesById(List<Integer> categoryIds) {
+>>>>>>> Java
         List<String> categories = new ArrayList<>();  //holds event categories names
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -96,7 +100,11 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                     e.printStackTrace();
                 }
         }
+<<<<<<< HEAD
     }
+=======
+    }*/
+>>>>>>> Java
 
     public boolean attachCategoryToEvent(String category,int eventID) {
         int categoryID = 0; //holds host id
@@ -134,6 +142,45 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    public boolean attachCategoryToPendingEvent(String category, int eventID) {
+        int categoryID = 0; //holds host id
+        PreparedStatement statement = null; //statement to execute db query
+
+        categoryID = getEventCategoryIdByName(category);
+
+        //checking if provided category exists in db
+        if (categoryID > 0) {
+
+            try (Connection connection = getConnectionToDB()) {
+                statement = connection.prepareStatement("update PendingEvent set EventCategoryID = ? where PendingEventID = ?");
+
+                statement.setInt(1, categoryID);
+                statement.setInt(2, eventID);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                }
+                throw new Exception("Couldn't find existing pending event with eventId:" + eventID);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
+
+        }
+        return false;
+    }
+
+>>>>>>> Java
     private int getEventCategoryIdByName(String category) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -169,6 +216,7 @@ public class EventCategoryHandler implements IEventCategoryHandler {
     }
 
     public boolean updateEventCategory(Event event, String category) {
+<<<<<<< HEAD
         int categoryID = getEventCategoryIdByName(category);
 
         if(categoryID > 0) {
@@ -200,6 +248,43 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
+=======
+
+        //checking if event is not null
+        if(event != null) {
+            int categoryID = getEventCategoryIdByName(category);
+
+            if(categoryID > 0) {
+                PreparedStatement statement = null;
+
+                try (Connection connection = getConnectionToDB()) {
+
+
+                    statement = connection.prepareStatement("update dbo.Event set EventCategoryID = ? where EventID = ?");
+                    statement.setInt(1, categoryID);
+                    statement.setInt(2, event.getId());
+
+                    int rowsAffected = statement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        return true;
+                    }
+                    else {
+                        throw new Exception("Couldn't find event with id:" + event.getId());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+
+                } finally {
+                    if (statement != null)
+                        try {
+                            statement.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                }
+>>>>>>> Java
             }
         }
         return false;
