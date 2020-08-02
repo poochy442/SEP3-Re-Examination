@@ -271,6 +271,79 @@ public class EventHandler implements IEventHandler {
         }
     }
 
+    public boolean requestEvent(Event event) {
+        int eventID = 0;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try (Connection connection = getConnectionToDB()) {
+            DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            //checking if event category and event name and start date are valid
+            if ((event.getEventCategory() != null && event.getEventCategory().length() > 0) &&
+                    (event.getEventName() != null && event.getEventName().length() > 0) &&
+                    (event.getStartDate() != null && event.getStartDate().isAfter(LocalDateTime.now()))) {
+
+                statement = connection.prepareStatement("insert into dbo.PendingEvent(EventName ,StartDate ,EndDate ,NumberOfSeats) " +
+                        "values(?,?,?,?)", new String[]{"EventID"}); //setting that jdbc returns values of column EventID
+                statement.setString(1, event.getEventName());
+                statement.setString(2, event.getStartDate().format(mssqlDateFormat));
+                statement.setString(3, event.getEndDate().format(mssqlDateFormat));
+                statement.setInt(4, event.getNumberOfSeats());
+
+                statement.executeUpdate();
+                rs = statement.getGeneratedKeys();
+
+                if (rs.next()) {
+                    eventID = rs.getInt(1);
+                } else {
+                    return false;
+                }
+
+                if(!eventCategoryHandler.attachCategoryToPendingEvent(event.getEventCategory(),eventID)) {
+                    deletePendingEvent(eventID);
+                    return false;
+                }
+
+
+                if (!hostHandler.attachHostToPendingEvent(event.getHost(), eventID)) {
+                    deletePendingEvent(eventID);
+                    return false;
+                }
+
+
+                if (!scheduleHandler.attachScheduleToPendingEvent(event.getCampus(), eventID)) {
+                    deletePendingEvent(eventID);
+                    return false;
+                }
+                return true;
+
+            } else {
+                throw new Exception("Event category not valid:" + event.getEventCategory() +
+                        " or event name not valid:" + event.getEventName() +
+                        " or event start date not valid:" + event.getStartDate());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
     public boolean updateEvent(Event event) {
         PreparedStatement statement = null;
 
@@ -318,6 +391,34 @@ public class EventHandler implements IEventHandler {
                 return true;
             } else {
                 throw new Exception("No such event with id:" + id);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
+    public boolean deletePendingEvent(int id) {
+        PreparedStatement statement = null;
+
+        try (Connection connection = getConnectionToDB()) {
+
+            statement = connection.prepareStatement("delete from dbo.PendingEvent where PendingEventID = ?");
+            statement.setInt(1, id);
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            } else {
+                throw new Exception("No such pending event with id:" + id);
             }
 
         } catch (Exception e) {

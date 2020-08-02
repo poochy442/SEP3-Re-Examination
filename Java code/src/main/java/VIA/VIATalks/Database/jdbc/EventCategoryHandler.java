@@ -134,6 +134,42 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         return false;
     }
 
+    public boolean attachCategoryToPendingEvent(String category, int eventID) {
+        int categoryID = 0; //holds host id
+        PreparedStatement statement = null; //statement to execute db query
+
+        categoryID = getEventCategoryIdByName(category);
+
+        //checking if provided category exists in db
+        if (categoryID > 0) {
+
+            try (Connection connection = getConnectionToDB()) {
+                statement = connection.prepareStatement("update PendingEvent set EventCategoryID = ? where PendingEventID = ?");
+
+                statement.setInt(1, categoryID);
+                statement.setInt(2, eventID);
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                }
+                throw new Exception("Couldn't find existing pending event with eventId:" + eventID);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
+
+        }
+        return false;
+    }
+
     private int getEventCategoryIdByName(String category) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query

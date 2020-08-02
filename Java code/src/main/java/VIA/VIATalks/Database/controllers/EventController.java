@@ -56,6 +56,13 @@ public class EventController {
         return eventHandler.createEvent(event);
     }
 
+    // POST: event/create
+    // Adds the passed event using the db and returns whether or not it succeeded
+    @PostMapping(path = "/request")
+    public boolean requestEvent(@RequestBody Event event) {
+        return eventHandler.requestEvent(event);
+    }
+
     // PUT: event/category/update
     // Updates the event category with the passed  event and category name using the db
     @PutMapping(path = "category/update")
@@ -75,6 +82,13 @@ public class EventController {
     @DeleteMapping(path = "/delete")
     public boolean deleteEvent(@RequestParam(value = "id") int id) {
         return eventHandler.deleteEvent(id);
+    }
+
+    // DELETE: event/pending/delete
+    // Deletes the pending event with the passed id to be equal to the event's id which to be deleted from the db
+    @DeleteMapping(path = "/pending/delete")
+    public boolean deletePendingEvent(@RequestParam(value = "id") int id) {
+        return eventHandler.deletePendingEvent(id);
     }
 
 }

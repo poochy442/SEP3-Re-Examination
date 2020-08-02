@@ -84,6 +84,26 @@ public class HostHandler implements IHostHandler {
 
     }
 
+    public boolean attachHostToPendingEvent(Host host, int eventId) {
+        int hostID = 0; //holds host id
+        boolean result = false; //holds return of the method
+
+        hostID = getHostIdByEmail(host.getHostEmail());
+
+        //checking if provided host exists in db
+        if (hostID > 0) {
+            host.setId(hostID); //setting id found in db
+            result = attachExistingHostToPendingEvent(host, eventId);
+            if (result) {
+                return true;
+            }
+            return false;
+        } else {
+            return attachNewHostToPendingEvent(host, eventId);
+        }
+    }
+
+
     private int getHostIdByEmail(String email) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -145,6 +165,33 @@ public class HostHandler implements IHostHandler {
         }
     }
 
+    private boolean attachExistingHostToPendingEvent(Host host, int eventId) {
+        PreparedStatement statement = null; //statement to execute db query
+
+        try (Connection connection = getConnectionToDB()) {
+            statement = connection.prepareStatement("update PendingEvent set HostID = ? where PendingEventID = ?");
+
+            statement.setInt(1, host.getId());
+            statement.setInt(2, eventId);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+            throw new Exception("Couldn't find existing host with id:" + host.getId() + " or pending eventId is wrong:" + eventId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
     private boolean attachNewHostToEvent(Host host, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -177,6 +224,65 @@ public class HostHandler implements IHostHandler {
                         return true;
                     }
                     throw new Exception("Couldn't find existing host with id:" + host.getId() + " or eventId is wrong:" + eventId);
+                }
+                throw new Exception("Couldnt create new host");
+            } else {
+                throw new Exception("host name wrong:" + host.getHostFirstName() + " " + host.getHostLastName() +
+                        " or email:" + host.getHostEmail());
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
+
+    private boolean attachNewHostToPendingEvent(Host host, int eventId) {
+        PreparedStatement statement = null; //statement to execute db query
+        ResultSet rs = null; //result set to get from executing db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            //checking if host names and email are valid
+            if ((host.getHostFirstName() != null && host.getHostFirstName().length() > 0) &&
+                    (host.getHostLastName() != null && host.getHostLastName().length() > 0) &&
+                    (host.getHostEmail() != null && host.getHostEmail().length() > 0)) {
+
+                statement = connection.prepareStatement("insert into Host(FirstName,LastName,Email,Telephone) " +
+                        "values(?,?,?,?)", new String[]{"HostID"}); //setting that jdbc returns values of column HostID
+                statement.setString(1, host.getHostFirstName());
+                statement.setString(2, host.getHostLastName());
+                statement.setString(3, host.getHostEmail());
+                statement.setString(4, host.getHostTelephone());
+
+                statement.executeUpdate();
+                rs = statement.getGeneratedKeys();
+
+                if (rs.next()) {
+                    host.setId(rs.getInt(1));
+                    statement = connection.prepareStatement("update PendingEvent set HostID = ? where PendingEventID = ?");
+
+                    statement.setInt(1, host.getId());
+                    statement.setInt(2, eventId);
+                    int rowsAffected = statement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        return true;
+                    }
+                    throw new Exception("Couldn't find existing host with id:" + host.getId() + " or pending eventId is wrong:" + eventId);
                 }
                 throw new Exception("Couldnt create new host");
             } else {
