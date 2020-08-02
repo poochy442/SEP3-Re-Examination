@@ -311,37 +311,42 @@ public class HostHandler implements IHostHandler {
     }
 
     public boolean updateHost(Host host) {
-        PreparedStatement statement = null; //statement to execute db query
 
-        try (Connection connection = getConnectionToDB()) {
+        //checking if host is not null
+        if(host != null) {
+            PreparedStatement statement = null; //statement to execute db query
 
-            statement = connection.prepareStatement("update dbo.Host set FirstName = ?, LastName = ?, Email = ?, Telephone= ? " +
-                    "where HostID = ?");
-            statement.setString(1, host.getHostFirstName());
-            statement.setString(2, host.getHostLastName());
-            statement.setString(3, host.getHostEmail());
-            statement.setString(4, host.getHostTelephone());
-            statement.setInt(5, host.getId());
+            try (Connection connection = getConnectionToDB()) {
 
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            } else {
-                throw new Exception("Couldnt find host with id:" + host.getId());
-            }
+                statement = connection.prepareStatement("update dbo.Host set FirstName = ?, LastName = ?, Email = ?, Telephone= ? " +
+                        "where HostID = ?");
+                statement.setString(1, host.getHostFirstName());
+                statement.setString(2, host.getHostLastName());
+                statement.setString(3, host.getHostEmail());
+                statement.setString(4, host.getHostTelephone());
+                statement.setInt(5, host.getId());
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-
-        } finally {
-            if (statement != null)
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    return true;
+                } else {
+                    throw new Exception("Couldnt find host with id:" + host.getId());
                 }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }
         }
+        return false;
     }
 }

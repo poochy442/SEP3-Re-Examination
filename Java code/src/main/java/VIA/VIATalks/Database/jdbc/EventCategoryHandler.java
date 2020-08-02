@@ -60,7 +60,7 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         }
     }
 
-    public List<String> getEventCategoriesById(List<Integer> categoryIds) {
+    /*public List<String> getEventCategoriesById(List<Integer> categoryIds) {
         List<String> categories = new ArrayList<>();  //holds event categories names
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -96,7 +96,7 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                     e.printStackTrace();
                 }
         }
-    }
+    }*/
 
     public boolean attachCategoryToEvent(String category,int eventID) {
         int categoryID = 0; //holds host id
@@ -205,37 +205,41 @@ public class EventCategoryHandler implements IEventCategoryHandler {
     }
 
     public boolean updateEventCategory(Event event, String category) {
-        int categoryID = getEventCategoryIdByName(category);
 
-        if(categoryID > 0) {
-            PreparedStatement statement = null;
+        //checking if event is not null
+        if(event != null) {
+            int categoryID = getEventCategoryIdByName(category);
 
-            try (Connection connection = getConnectionToDB()) {
+            if(categoryID > 0) {
+                PreparedStatement statement = null;
+
+                try (Connection connection = getConnectionToDB()) {
 
 
-                statement = connection.prepareStatement("update dbo.Event set EventCategoryID = ? where EventID = ?");
-                statement.setInt(1, categoryID);
-                statement.setInt(2, event.getId());
+                    statement = connection.prepareStatement("update dbo.Event set EventCategoryID = ? where EventID = ?");
+                    statement.setInt(1, categoryID);
+                    statement.setInt(2, event.getId());
 
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected > 0) {
-                    return true;
-                }
-                else {
-                    throw new Exception("Couldn't find event with id:" + event.getId());
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-
-            } finally {
-                if (statement != null)
-                    try {
-                        statement.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
+                    int rowsAffected = statement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        return true;
                     }
+                    else {
+                        throw new Exception("Couldn't find event with id:" + event.getId());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+
+                } finally {
+                    if (statement != null)
+                        try {
+                            statement.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                }
             }
         }
         return false;

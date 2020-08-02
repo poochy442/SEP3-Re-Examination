@@ -33,6 +33,13 @@ public class EventController {
         return eventHandler.getUpcomingEvents(date);
     }
 
+    //GET: event/request/all
+    //Returns all pending events from db
+    @GetMapping(path = "/request/all")
+    public List<Event> getAllRequestedEvents() {
+        return eventHandler.getAllRequestedEvents();
+    }
+
     //GET: event/categoriy/all
     //Returns all event categories stored in db
     @GetMapping(path = "/category/all")
@@ -61,6 +68,16 @@ public class EventController {
     @PostMapping(path = "/request")
     public boolean requestEvent(@RequestBody Event event) {
         return eventHandler.requestEvent(event);
+    }
+
+    //POST: event/request/accept
+    //Deletes pending event and adds its info + attached room from C# to db
+    @PostMapping(path = "request/accept")
+    public boolean requestAccept(@RequestBody Event event) {
+        if(eventHandler.createEvent(event)) {
+            return eventHandler.deletePendingEvent(event.getId());
+        }
+        return false;
     }
 
     // PUT: event/category/update
