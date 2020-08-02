@@ -21,6 +21,48 @@ public class HostHandler implements IHostHandler {
         return DriverManager.getConnection(dbConnectionString);
     }
 
+    public List<Host> getAllHosts() {
+        List<Host> hosts = new ArrayList<>(); //holds hosts
+        PreparedStatement statement = null; //statement to execute db query
+        ResultSet rs = null; //result set to get from executing db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            statement = connection.prepareStatement("select * from dbo.Host");
+            rs = statement.executeQuery();
+
+            //go through all hosts returned to result set
+            while (rs.next()) {
+                int id = rs.getInt("HostID");
+                String fname = rs.getString("FirstName");
+                String lname = rs.getString("LastName");
+                String email = rs.getString("Email");
+                String telephone = rs.getString("Telephone");
+
+                //add new host to universities list
+                hosts.add(new Host(id,fname,lname,email,telephone));
+            }
+            return hosts;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
 
     public boolean attachHostToEvent(Host host, int eventId) {
         int hostID = 0; //holds host id
@@ -109,29 +151,38 @@ public class HostHandler implements IHostHandler {
 
         try (Connection connection = getConnectionToDB()) {
 
-            statement = connection.prepareStatement("insert into Host(FirstName,LastName,Email,Telephone) " +
-                    "values(?,?,?,?)", new String[] { "HostID" }); //setting that jdbc returns values of column HostID
-            statement.setString(1, host.getHostFirstName());
-            statement.setString(2, host.getHostLastName());
-            statement.setString(3, host.getHostEmail());
-            statement.setString(4, host.getHostTelephone());
+            //checking if host names and email are valid
+            if ((host.getHostFirstName() != null && host.getHostFirstName().length() > 0) &&
+                    (host.getHostLastName() != null && host.getHostLastName().length() > 0) &&
+                    (host.getHostEmail() != null && host.getHostEmail().length() > 0)) {
 
-            statement.executeUpdate();
-            rs = statement.getGeneratedKeys();
+                statement = connection.prepareStatement("insert into Host(FirstName,LastName,Email,Telephone) " +
+                        "values(?,?,?,?)", new String[]{"HostID"}); //setting that jdbc returns values of column HostID
+                statement.setString(1, host.getHostFirstName());
+                statement.setString(2, host.getHostLastName());
+                statement.setString(3, host.getHostEmail());
+                statement.setString(4, host.getHostTelephone());
 
-            if (rs.next()) {
-                host.setId(rs.getInt("HostID"));
-                statement = connection.prepareStatement("update Event set HostID = ? where EventID = ?");
+                statement.executeUpdate();
+                rs = statement.getGeneratedKeys();
 
-                statement.setInt(1, host.getId());
-                statement.setInt(2, eventId);
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected > 0) {
-                    return true;
+                if (rs.next()) {
+                    host.setId(rs.getInt(1));
+                    statement = connection.prepareStatement("update Event set HostID = ? where EventID = ?");
+
+                    statement.setInt(1, host.getId());
+                    statement.setInt(2, eventId);
+                    int rowsAffected = statement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        return true;
+                    }
+                    throw new Exception("Couldn't find existing host with id:" + host.getId() + " or eventId is wrong:" + eventId);
                 }
-                throw new Exception("Couldn't find existing host with id:" + host.getId() + " or eventId is wrong:" + eventId);
+                throw new Exception("Couldnt create new host");
+            } else {
+                throw new Exception("host name wrong:" + host.getHostFirstName() + " " + host.getHostLastName() +
+                        " or email:" + host.getHostEmail());
             }
-            throw new Exception("Couldnt create new host");
 
 
         } catch (Exception e) {
@@ -169,8 +220,7 @@ public class HostHandler implements IHostHandler {
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
                 return true;
-            }
-            else {
+            } else {
                 throw new Exception("Couldnt find host with id:" + host.getId());
             }
 

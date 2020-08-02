@@ -14,6 +14,14 @@ public class Event implements Serializable {
     private int numberOfSeats;
     private int registeredUsers;
 
+    private Host host;
+    private Room room;
+    private Campus campus;
+
+    //default Constructor for JSON deserialization
+    public Event() {
+    }
+
     //Constructor
     public Event(int id, String eventCategory, String eventName, LocalDateTime startDate, LocalDateTime endDate, int numberOfSeats) {
         this.id = id;
@@ -24,10 +32,28 @@ public class Event implements Serializable {
         this.numberOfSeats = numberOfSeats;
     }
 
+    //Constructor
+    public Event(int id, String eventCategory, String eventName, LocalDateTime startDate, LocalDateTime endDate, int numberOfSeats, int registeredUsers, Host host, Room room, Campus campus) {
+        this.id = id;
+        this.eventCategory = eventCategory;
+        this.eventName = eventName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.numberOfSeats = numberOfSeats;
+        this.registeredUsers = registeredUsers;
+        this.host = host;
+        this.room = room;
+        this.campus = campus;
+    }
+
+
     //Getters and Setters
 
     public int getId() {
         return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEventCategory() {
@@ -76,5 +102,29 @@ public class Event implements Serializable {
 
     public void setRegisteredUsers(int registeredUsers) {
         this.registeredUsers = registeredUsers;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 }

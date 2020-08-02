@@ -3,6 +3,7 @@ package VIA.VIATalks.Database.controllers;
 import VIA.VIATalks.Database.data.Campus;
 import VIA.VIATalks.Database.data.University;
 import VIA.VIATalks.Database.jdbc.UniversityCampusHandler;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IUniversityCampusHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/university")
 public class UniversityCampusController {
-    private UniversityCampusHandler handler; //DAO for events
+
+    private IUniversityCampusHandler handler; //DAO for events
 
     public UniversityCampusController() {
         handler = new UniversityCampusHandler();

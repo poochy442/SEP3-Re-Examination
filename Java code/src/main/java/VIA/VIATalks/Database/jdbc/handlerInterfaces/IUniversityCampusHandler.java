@@ -8,5 +8,6 @@ import java.util.List;
 public interface IUniversityCampusHandler {
     public List<University> getAllUniversities();
     public List<Campus> getCampusesForUniversity(University university);
+    public boolean campusExistsOnAddress(String address);
 
 }

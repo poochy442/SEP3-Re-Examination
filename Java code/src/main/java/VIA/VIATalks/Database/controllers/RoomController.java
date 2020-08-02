@@ -5,6 +5,7 @@ import VIA.VIATalks.Database.data.Campus;
 import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Room;
 import VIA.VIATalks.Database.jdbc.RoomHandler;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IRoomHandler;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
 
-    private RoomHandler handler;  //DAO for events
+    private IRoomHandler handler;  //DAO for events
 
     public RoomController() {
         handler = new RoomHandler();
@@ -26,12 +27,8 @@ public class RoomController {
         return handler.getRoomsForCampus(campus);
     }
 
-    // POST: room/attach
-    // Attaches room to event and returns whether or not it succeeded
-    @PostMapping(path = "/attach")
-    public boolean attachRoom(@RequestBody Room room, @RequestParam(value = "eventId")int eventId) {
-        return handler.attachRoomToEvent(room, eventId);
-    }
+    @GetMapping(path = "/booked")
+    public List<Room> getBookedRoomsForCampus(@RequestBody Campus campus) {return handler.getBookedRoomsForCampus(campus);}
 
     // PUT: room/update
     // Updates room for the event in the db

@@ -4,6 +4,8 @@ import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Host;
 import VIA.VIATalks.Database.jdbc.EventCategoryHandler;
 import VIA.VIATalks.Database.jdbc.EventHandler;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IEventCategoryHandler;
+import VIA.VIATalks.Database.jdbc.handlerInterfaces.IEventHandler;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +17,12 @@ import java.util.List;
 @RequestMapping("/event")
 public class EventController {
 
-    private EventHandler handler;  //DAO for events
-    private EventCategoryHandler categoryHandler; //DAO for categories
+    private IEventHandler eventHandler;  //DAO for events
+    private IEventCategoryHandler categoryHandler; //DAO for categories
 
 
     public EventController() {
-        handler = new EventHandler();
+        eventHandler = new EventHandler();
         categoryHandler = new EventCategoryHandler();
     }
 
@@ -28,7 +30,7 @@ public class EventController {
     // Gets all upcoming events from the db and returns it
     @GetMapping(path = "/upcoming")
     public List<Event> getAllEvents(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime date) {
-        return handler.getUpcomingEvents(date);
+        return eventHandler.getUpcomingEvents(date);
     }
 
     //GET: event/categoriy/all
@@ -38,11 +40,20 @@ public class EventController {
         return categoryHandler.getAllEventCategories();
     }
 
+    //GET: event/all/booked/room
+    //Returns events which after the provided date
+    //Event will rooms it is booked in
+    @GetMapping(path = "/all/booked/room")
+    public List<Event> getEventsBookedInRooms(@RequestParam(value="scheduleId") int scheduleID,
+                                              @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime date) {
+        return eventHandler.getEventsBookedInRooms(scheduleID,date);
+    }
+
     // POST: event/create
     // Adds the passed event using the db and returns whether or not it succeeded
     @PostMapping(path = "/create")
     public boolean createEvent(@RequestBody Event event) {
-        return handler.createEvent(event);
+        return eventHandler.createEvent(event);
     }
 
     // PUT: event/category/update
@@ -56,14 +67,14 @@ public class EventController {
     // Updates the event with the passed  event using the db
     @PutMapping(path = "/update")
     public boolean updateEvent(@RequestBody Event event) {
-        return handler.updateEvent(event);
+        return eventHandler.updateEvent(event);
     }
 
     // DELETE: event/delete
     // Deletes the event with the passed id to be equal to the event's id which to be deleted from the db
     @DeleteMapping(path = "/delete")
     public boolean deleteEvent(@RequestParam(value = "id") int id) {
-        return handler.deleteEvent(id);
+        return eventHandler.deleteEvent(id);
     }
 
 }

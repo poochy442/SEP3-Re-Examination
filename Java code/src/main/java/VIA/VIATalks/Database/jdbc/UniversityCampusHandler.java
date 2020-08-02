@@ -107,4 +107,42 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
                 }
         }
     }
+
+    public boolean campusExistsOnAddress(String address) {
+        PreparedStatement statement = null; //statement to execute db query
+        ResultSet rs = null; //result set to get from executing db query
+
+        try (Connection connection = getConnectionToDB()) {
+
+            statement = connection.prepareStatement("select CampusID from dbo.Campus where Address = ?");
+            statement.setString(1,address);
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("CampusID");
+
+                if(id>0) return true;
+
+            }
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
+    }
 }
