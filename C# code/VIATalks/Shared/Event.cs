@@ -22,6 +22,7 @@ namespace DataClasses
                 Telephone = telephone;
             }
         }
+        public int Id { get; set; }
         public String Category { get; set; }
         public String EventName { get; set; }
         public DateTime StartTime { get; set; }
@@ -40,12 +41,14 @@ namespace DataClasses
 
         }
         public Event(
+            int id,
             String eventName,
             String category,
             DateTime startTime,
             DateTime endTime,
             EventHost host)
         {
+            Id = id;
             Category = category;
             EventName = eventName;
             StartTime = startTime;

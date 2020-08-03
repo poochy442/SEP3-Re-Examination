@@ -1,4 +1,4 @@
-﻿@page "/new_event"
+﻿@page "/edit_event/{EventId:int}"
 @using DataClasses
 @using Client.Models
 @using System.Net.Http
@@ -47,6 +47,7 @@
     </p>
 
     <button type="submit">Submit</button>
+    <button @onclick="CancelEvent">Delete Event</button>
 
     <p id="errorMessage"></p>
 </EditForm>
@@ -55,8 +56,13 @@
     private EventModel eventModel = new EventModel();
     private EditContext editContext;
 
+    [Parameter]
+    public int EventId { get; set; }
+
     protected override void OnInitialized()
     {
+        eventModel.StartTime = DateTime.Now;
+        eventModel.EndTime = DateTime.Now.AddHours(2);
         editContext = new EditContext(eventModel);
         eventModel.Host = new Event.EventHost(
             "Kenneth",
@@ -72,7 +78,7 @@
         if (isValid)
         {
             Console.WriteLine("IsValid\n");
-            HttpResponseMessage rm = await Http.PostAsJsonAsync<Event>("event", eventModel.GetEvent());
+            HttpResponseMessage rm = await Http.PutAsJsonAsync<Event>($"event?id={EventId}", eventModel.GetEvent());
             try
             {
                 rm.EnsureSuccessStatusCode();
@@ -88,5 +94,11 @@
         {
             Console.WriteLine("IsNotValid");
         }
+    }
+
+    private async Task CancelEvent()
+    {
+        Console.WriteLine("CancelEvent called\n");
+        HttpResponseMessage rm = await Http.DeleteAsync($"event?id={EventId}");
     }
 }

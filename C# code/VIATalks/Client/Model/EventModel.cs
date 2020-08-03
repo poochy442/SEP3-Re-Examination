@@ -30,7 +30,7 @@ namespace Client.Models
 
         public Event GetEvent()
         {
-            return new Event(EventName, Category, StartTime, EndTime, Host);
+            return new Event(-1, EventName, Category, StartTime, EndTime, Host);
         }
     }
 }

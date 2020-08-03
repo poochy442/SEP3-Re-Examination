@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DataClasses;
 using System.Net.NetworkInformation;
+using Server.Adapter;
 
 namespace Server.Controllers
 {
@@ -13,19 +14,10 @@ namespace Server.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        public List<Event> events;
+        private EventAdapter adapter;
         public EventController()
         {
-            events = new List<Event>
-            {
-                // Mock data
-                new Event(
-                "How to be cool",
-                "Educational",
-                DateTime.Now,
-                DateTime.Now.AddHours(2),
-                new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"))
-            };
+            adapter = new EventAdapter();
         }
 
         [HttpGet]
@@ -33,32 +25,42 @@ namespace Server.Controllers
         {
             // TODO: Query Database
             Console.WriteLine("GetEvents called");
-            return events;
+            return await adapter.GetEvents();
         }
 
         [HttpGet("{eventName}")]
-        public async Task<Event> GetEvent(String eventName)
+        public async Task<Event> GetEvent(
+            [FromQuery] String eventName)
         {
             // TODO: Query Database
             Console.WriteLine("GetEvent called");
-            foreach (Event e in events)
-            {
-                if (e.EventName == eventName)
-                    return e;
-            }
-
-            return null;
+            return await adapter.GetEvent(eventName);
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> AddEvent(Event e)
+        public async Task<ActionResult<bool>> AddEvent(
+            [FromBody] Event e)
         {
             // TODO: Query Database
-            Console.WriteLine("AddEvent called\n");
-            events.Add(e);
-            Console.WriteLine("Adding event:\n" + e.ToString());
+            Console.WriteLine("AddEvent called");
+            return await adapter.AddEvent(e);
+        }
 
-            return true;
+        [HttpPut]
+        public async Task<ActionResult<bool>> EditEvent(
+            [FromQuery] int id,
+            [FromBody] Event e)
+        {
+            Console.WriteLine("EditEvent called");
+            return await adapter.EditEvent(id, e);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<bool>> CancelEvent(
+            [FromQuery] int id)
+        {
+            Console.WriteLine("CancelEvent called");
+            return await adapter.CancelEvent(id);
         }
 
     }
