@@ -1,0 +1,92 @@
+﻿@page "/new_event"
+@using DataClasses
+@using Client.Models
+@using System.Net.Http
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<h1>New Event</h1>
+
+<EditForm Model="@eventModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@eventModel" />
+
+    <p>
+        <label>
+            Event Name:
+            <InputText id="eventName" @bind-Value="eventModel.EventName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Event Category:
+            <InputSelect id="category" @bind-Value="eventModel.Category">
+                <option value="">Select Category</option>
+                <option value="Educational">@Event.CATEGORIES.Educational</option>
+                <option value="Entertainment">@Event.CATEGORIES.Entertainment</option>
+            </InputSelect>
+        </label>
+    </p>
+    <p>
+        <label>
+            Maximum Accomidation:
+            <InputNumber id="accomidation" @bind-Value="eventModel.NumberOfSeats" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Start time:
+            <InputDate id="startTime" @bind-Value="eventModel.StartTime" />
+        </label>
+    </p>
+    <p>
+        <label>
+            End time:
+            <InputDate id="endTime" @bind-Value="eventModel.EndTime" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+
+    <p id="errorMessage"></p>
+</EditForm>
+
+@code {
+    private EventModel eventModel = new EventModel();
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(eventModel);
+        eventModel.Host = new Event.EventHost(
+            "Kenneth",
+            "Jensen",
+            "123@abc.com",
+            "12345678");
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var isValid = editContext.Validate();
+
+        if (isValid)
+        {
+            Console.WriteLine("IsValid\n");
+            HttpResponseMessage rm = await Http.PostAsJsonAsync<Event>("event", eventModel.GetEvent());
+            try
+            {
+                rm.EnsureSuccessStatusCode();
+                UriHelper.NavigateTo("schedule");
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message + "\n" + e.StackTrace);
+                // Display error
+            }
+        }
+        else
+        {
+            Console.WriteLine("IsNotValid");
+        }
+    }
+}

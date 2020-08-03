@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "88bWURttCpOUrDUXx7rFVIe8UTcTUmYcyhTHSdodrQeeYCBlqr+CXUsv8LLF29GxjLJsOppLzb6NC8V9rbHCzA==",
+  "dgSpecHash": "ojk2RcyuqLK+ejDLOtD2wyBzGEeqwDAt5YDVxhJowcbSQkjB+HHXxN9V29jP6rZ8FwaNNJ02E5v8ACNtZNOD0w==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Server\\Server.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Bruger\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

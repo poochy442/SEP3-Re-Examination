@@ -1,0 +1,18 @@
+C:\Users\Bruger\source\repos\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.deps.json
+C:\Users\Bruger\source\repos\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.dll
+C:\Users\Bruger\source\repos\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.pdb
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.csprojAssemblyReference.cache
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfoInputs.cache
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfo.cs
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.dll
+C:\Users\Bruger\source\repos\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.pdb
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.deps.json
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\Shared.pdb
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.csprojAssemblyReference.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfoInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.AssemblyInfo.cs
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.csproj.CoreCompileInputs.cache
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.dll
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\Shared.pdb
