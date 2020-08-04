@@ -32,5 +32,19 @@ namespace Client.Models
         {
             return new Event(-1, EventName, Category, StartTime, EndTime, Host);
         }
+<<<<<<< HEAD
+=======
+        public void SetEvent(Event e)
+        {
+            Event = e;
+            Category = e.Category;
+            EventName = e.EventName;
+            StartTime = e.StartTime;
+            EndTime = e.EndTime;
+            NumberOfSeats = e.NumberOfSeats;
+            RegisteredUsers = e.RegisteredUsers;
+            Host = e.Host;
+        }
+>>>>>>> C#
     }
 }
