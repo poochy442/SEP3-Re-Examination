@@ -14,17 +14,10 @@ namespace Server.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-<<<<<<< HEAD
         private EventAdapter adapter;
         public EventController()
         {
             adapter = new EventAdapter();
-=======
-        private EventAdapter Adapter { get; set; }
-        public EventController(EventAdapter adapter)
-        {
-            Adapter = adapter;
->>>>>>> C#
         }
 
         [HttpGet]
@@ -32,7 +25,6 @@ namespace Server.Controllers
         {
             // TODO: Query Database
             Console.WriteLine("GetEvents called");
-<<<<<<< HEAD
             return await adapter.GetEvents();
         }
 
@@ -43,17 +35,6 @@ namespace Server.Controllers
             // TODO: Query Database
             Console.WriteLine("GetEvent called");
             return await adapter.GetEvent(eventName);
-=======
-            return await Adapter.GetEvents();
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<Event> GetEvent(int id)
-        {
-            // TODO: Query Database
-            Console.WriteLine("GetEvent called");
-            return await Adapter.GetEvent(id);
->>>>>>> C#
         }
 
         [HttpPost]
@@ -62,11 +43,7 @@ namespace Server.Controllers
         {
             // TODO: Query Database
             Console.WriteLine("AddEvent called");
-<<<<<<< HEAD
             return await adapter.AddEvent(e);
-=======
-            return await Adapter.AddEvent(e);
->>>>>>> C#
         }
 
         [HttpPut]
@@ -75,11 +52,7 @@ namespace Server.Controllers
             [FromBody] Event e)
         {
             Console.WriteLine("EditEvent called");
-<<<<<<< HEAD
             return await adapter.EditEvent(id, e);
-=======
-            return await Adapter.EditEvent(id, e);
->>>>>>> C#
         }
 
         [HttpDelete]
@@ -87,11 +60,7 @@ namespace Server.Controllers
             [FromQuery] int id)
         {
             Console.WriteLine("CancelEvent called");
-<<<<<<< HEAD
             return await adapter.CancelEvent(id);
-=======
-            return await Adapter.CancelEvent(id);
->>>>>>> C#
         }
 
     }

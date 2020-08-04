@@ -21,7 +21,6 @@
         <tbody>
             @foreach (Event e in events)
             {
-<<<<<<< HEAD
                 <tr>
                     <td>@e.EventName</td>
                     <td>@e.Category</td>
@@ -31,22 +30,6 @@
                     <td>@e.RegisteredUsers</td>
                     <td><a href="edit_event/@e.Id">Edit</a></td>
                 </tr>
-=======
-            <tr>
-                <td>@e.EventName</td>
-                <td>@e.Category</td>
-                <td>@e.StartTime</td>
-                <td>@e.EndTime</td>
-                <td>@e.NumberOfSeats</td>
-                <td>@e.RegisteredUsers</td>
-                <!-- TODO: Authentication-->
-                <td><a href="edit_event/@e.Id">Edit</a></td>
-                @if (e.NumberOfSeats > e.RegisteredUsers)
-                {
-                    <td><button @onclick="@(a => SignUp(e))">Sign Up</button></td>
-                }
-            </tr>
->>>>>>> C#
             }
         </tbody>
     </table>
@@ -72,22 +55,4 @@ else
         events = await Http.GetFromJsonAsync<List<Event>>("event");
     }
 
-<<<<<<< HEAD
-=======
-    private async Task SignUp(Event e)
-    {
-        e.RegisteredUsers++;
-        await GetEvents();
-
-        /* TODO: Fix
-        bool confirmed = await JsRuntime.InvokeAsync<bool>("Confirm", "Are you sure?");
-        if (confirmed)
-        {
-            e.RegisteredUsers++;
-            await GetEvents();
-        }
-        */
-    }
-
->>>>>>> C#
 }

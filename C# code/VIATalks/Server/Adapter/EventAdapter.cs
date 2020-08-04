@@ -23,10 +23,6 @@ namespace Server.Adapter
                     DateTime.Now.AddHours(2),
                     new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"))
             };
-<<<<<<< HEAD
-=======
-            events[0].NumberOfSeats = 50;
->>>>>>> C#
         }
 
         public async Task<List<Event>> GetEvents()
@@ -35,20 +31,12 @@ namespace Server.Adapter
             return events;
         }
 
-<<<<<<< HEAD
         public async Task<Event> GetEvent(String eventName)
-=======
-        public async Task<Event> GetEvent(int id)
->>>>>>> C#
         {
             // TODO: Query Database
             foreach (Event e in events)
             {
-<<<<<<< HEAD
                 if (e.EventName == eventName)
-=======
-                if (e.Id == id)
->>>>>>> C#
                     return e;
             }
 

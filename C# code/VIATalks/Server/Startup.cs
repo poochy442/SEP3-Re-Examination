@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Server.Adapter;
+using Newtonsoft.Json;
 
 namespace Server
 {
@@ -28,7 +28,6 @@ namespace Server
         {
             services.AddControllers();
             services.AddCors();
-            services.AddSingleton<EventAdapter>(new EventAdapter());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
