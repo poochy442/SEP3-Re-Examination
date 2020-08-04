@@ -5,10 +5,7 @@ import VIA.VIATalks.Database.data.Event;
 import java.util.List;
 
 public interface ITicketHandler {
-<<<<<<< HEAD
-    public List<Integer> getTicketsCountForEvents(List<Event> events);
-=======
+    public boolean issueTicketForEvent(Event event, int userId);
     //public List<Integer> getTicketsCountForEvents(List<Event> events);
->>>>>>> Java
 
 }

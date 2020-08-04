@@ -1,9 +1,6 @@
 package VIA.VIATalks.Database.jdbc;
 
-<<<<<<< HEAD
-=======
 import VIA.VIATalks.Database.data.Campus;
->>>>>>> Java
 import VIA.VIATalks.Database.data.Event;
 import VIA.VIATalks.Database.data.Host;
 import VIA.VIATalks.Database.data.Room;
@@ -41,131 +38,90 @@ public class EventHandler implements IEventHandler {
 
     public List<Event> getUpcomingEvents(LocalDateTime date) {
         List<Event> events = new ArrayList<>(); //holds events
-<<<<<<< HEAD
-        List<Integer> categoryIds = new ArrayList<>(); //holds event category ids
-=======
->>>>>>> Java
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
-            DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //checking date is not null
+        if(date != null) {
+            try (Connection connection = getConnectionToDB()) {
+                DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-<<<<<<< HEAD
-            statement = connection.prepareStatement("select * from dbo.Event where StartDate > ?");
-=======
-            statement = connection.prepareStatement("select e.EventID, e.EventName, e.StartDate, e.EndDate, e.NumberOfSeats, ec.Name, \n" +
-                    "  h.HostID, h.FirstName, h.LastName, h.Email, h.Telephone,\n" +
-                    "  r.RoomID, r.RoomNumber, r.Block, r.Capacity, r.Area,\n" +
-                    "  c.CampusID, c.City, c.PostalCode, c.Address,\n" +
-                    "  (select count(TicketID) as Tickets from Ticket t where t.EventID = e.EventID)\n" +
-                    "  from\n" +
-                    "  Event e join EventCategory ec on e.EventCategoryID = ec.EventCategoryID\n" +
-                    "                 join Host h on e.HostID = h.HostID\n" +
-                    "\t\t\t\t join Room r on e.RoomID = r.RoomID\n" +
-                    "\t\t\t\t join Campus c on e.ScheduleID = c.ScheduleID\n" +
-                    "where e.StartDate > ?");
->>>>>>> Java
-            statement.setString(1, date.format(mssqlDateFormat));
-            rs = statement.executeQuery();
+                statement = connection.prepareStatement("select e.EventID, e.EventName, e.StartDate, e.EndDate, e.NumberOfSeats, ec.Name, \n" +
+                        "  h.HostID, h.FirstName, h.LastName, h.Email, h.Telephone,\n" +
+                        "  r.RoomID, r.RoomNumber, r.Block, r.Capacity, r.Area,\n" +
+                        "  c.CampusID, c.City, c.PostalCode, c.Address,\n" +
+                        "  (select count(TicketID) as Tickets from Ticket t where t.EventID = e.EventID)\n" +
+                        "  from\n" +
+                        "  Event e join EventCategory ec on e.EventCategoryID = ec.EventCategoryID\n" +
+                        "                 join Host h on e.HostID = h.HostID\n" +
+                        "\t\t\t\t join Room r on e.RoomID = r.RoomID\n" +
+                        "\t\t\t\t join Campus c on e.ScheduleID = c.ScheduleID\n" +
+                        "where e.StartDate > ?");
+                statement.setString(1, date.format(mssqlDateFormat));
+                rs = statement.executeQuery();
 
-            //go through all events returned to result set
-<<<<<<< HEAD
-            while (rs.next()) {
-                int id = rs.getInt("EventID");
-                String name = rs.getString("EventName");
-=======
-            //set all event properties as well as host,room and campus instances
-            while (rs.next()) {
-                int eventId = rs.getInt("EventID");
-                String category = rs.getString("Name");
-                String eventName = rs.getString("EventName");
->>>>>>> Java
-                LocalDateTime startDate = LocalDateTime.of(rs.getDate("StartDate").toLocalDate(),
-                        rs.getTime("StartDate").toLocalTime());
-                LocalDateTime endDate = LocalDateTime.of(rs.getDate("EndDate").toLocalDate(),
-                        rs.getTime("EndDate").toLocalTime());
-                int seats = rs.getInt("NumberOfSeats");
+                //go through all events returned to result set
+                //set all event properties as well as host,room and campus instances
+                while (rs.next()) {
+                    int eventId = rs.getInt("EventID");
+                    String category = rs.getString("Name");
+                    String eventName = rs.getString("EventName");
+                    LocalDateTime startDate = LocalDateTime.of(rs.getDate("StartDate").toLocalDate(),
+                            rs.getTime("StartDate").toLocalTime());
+                    LocalDateTime endDate = LocalDateTime.of(rs.getDate("EndDate").toLocalDate(),
+                            rs.getTime("EndDate").toLocalTime());
+                    int seats = rs.getInt("NumberOfSeats");
 
-<<<<<<< HEAD
-                //collecting event categories ids to find and map later event categories names to events
-                categoryIds.add(rs.getInt("EventCategoryID"));
+                    int hostId = rs.getInt("HostID");
+                    String hostFName = rs.getString("FirstName");
+                    String hostLName = rs.getString("LastName");
+                    String hostEmail = rs.getString("Email");
+                    String hostTelephone = rs.getString("Telephone");
 
-                //add new event to events list
-                events.add(new Event(id, null, name, startDate, endDate, seats));
+                    int roomId = rs.getInt("RoomID");
+                    int roomNumber = rs.getInt("RoomNumber");
+                    char roomBlock = rs.getString("Block").charAt(0);
+                    int roomCapacity = rs.getInt("Capacity");
+                    double roomArea = rs.getDouble("Area");
 
-            }
+                    int campusId = rs.getInt("CampusID");
+                    String campusCity = rs.getString("City");
+                    int postalCode = rs.getInt("PostalCode");
+                    String campusAddress = rs.getString("Address");
 
-            //getting event categories names
-            List<String> eventCategoryNames = eventCategoryHandler.getEventCategoriesById(categoryIds);
+                    Event event = new Event(eventId, category, eventName, startDate, endDate, seats);
+                    event.setHost(new Host(hostId, hostFName, hostLName, hostEmail, hostTelephone));
+                    event.setRoom(new Room(roomId, roomNumber, roomBlock, roomCapacity, roomArea));
+                    event.setCampus(new Campus(campusId, campusCity, postalCode, campusAddress));
 
-            //mapping categories names to events
-            if (eventCategoryNames != null && eventCategoryNames.size() > 0) {
-                for (int i = 0; i < events.size(); i++) {
-                    events.get(i).setEventCategory(eventCategoryNames.get(i));
+                    //add new event to events list
+                    events.add(event);
+
                 }
-            } else {
-                throw new Exception("Event category names list is null/size of 0");
+
+                return events;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+
+            } finally {
+                if (statement != null)
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                if (rs != null)
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
             }
-
-
-            //getting ticket counts(registered users) for events
-            List<Integer> ticketCounts = ticketHandler.getTicketsCountForEvents(events);
-
-            //setting registered users for events
-            for (int i = 0; i < events.size(); i++) {
-                events.get(i).setRegisteredUsers(ticketCounts.get(i));
-            }
-
-
-=======
-                int hostId = rs.getInt("HostID");
-                String hostFName = rs.getString("FirstName");
-                String hostLName = rs.getString("LastName");
-                String hostEmail = rs.getString("Email");
-                String hostTelephone = rs.getString("Telephone");
-
-                int roomId = rs.getInt("RoomID");
-                int roomNumber = rs.getInt("RoomNumber");
-                char roomBlock = rs.getString("Block").charAt(0);
-                int roomCapacity = rs.getInt("Capacity");
-                double roomArea = rs.getDouble("Area");
-
-                int campusId = rs.getInt("CampusID");
-                String campusCity = rs.getString("City");
-                int postalCode = rs.getInt("PostalCode");
-                String campusAddress = rs.getString("Address");
-
-                Event event = new Event(eventId, category, eventName, startDate, endDate, seats);
-                event.setHost(new Host(hostId, hostFName, hostLName, hostEmail, hostTelephone));
-                event.setRoom(new Room(roomId, roomNumber, roomBlock, roomCapacity, roomArea));
-                event.setCampus(new Campus(campusId, campusCity, postalCode, campusAddress));
-
-                //add new event to events list
-                events.add(event);
-
-            }
-
-            return events;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-
-        } finally {
-            if (statement != null)
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            if (rs != null)
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
         }
+        return events;
+
 
     }
 
@@ -215,7 +171,6 @@ public class EventHandler implements IEventHandler {
                 //add new event to events list
                 events.add(event);
             }
->>>>>>> Java
             return events;
 
         } catch (Exception e) {
@@ -236,31 +191,16 @@ public class EventHandler implements IEventHandler {
                     e.printStackTrace();
                 }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> Java
     }
 
     public List<Event> getEventsBookedInRooms(int scheduleID, LocalDateTime date) {
         List<Event> events = new ArrayList<>(); //holds events
-<<<<<<< HEAD
-        List<Integer> categoryIds = new ArrayList<>(); //holds event categoru ids
-=======
->>>>>>> Java
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
         try (Connection connection = getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-<<<<<<< HEAD
-            statement = connection.prepareStatement("select * from\n" +
-                    "  Room r join Event e on r.RoomID = e.RoomID\n" +
-                    "  where e.ScheduleID = ? and e.StartDate > ?\n" +
-                    "  order by Block,RoomNumber,StartDate,EndDate");
-            statement.setInt(1,scheduleID);
-=======
             statement = connection.prepareStatement("select e.EventID, e.EventName, e.StartDate, e.EndDate, e.NumberOfSeats, ec.Name,\n" +
                     "\t   r.RoomID, r.RoomNumber, r.Block, r.Capacity, r.Area\n" +
                     "from EventCategory ec join Event e on ec.EventCategoryID = e.EventCategoryID\n" +
@@ -268,20 +208,14 @@ public class EventHandler implements IEventHandler {
                     "where e.ScheduleID = ? and e.StartDate > ? \n" +
                     "order by Block,RoomNumber,StartDate,EndDate");
             statement.setInt(1, scheduleID);
->>>>>>> Java
             statement.setString(2, date.format(mssqlDateFormat));
             rs = statement.executeQuery();
 
             //go through all events returned to result set
-<<<<<<< HEAD
-            while (rs.next()) {
-                int eventId = rs.getInt("EventID");
-=======
             //setting all event properties as well as room instance
             while (rs.next()) {
                 int eventId = rs.getInt("EventID");
                 String category = rs.getString("Name");
->>>>>>> Java
                 String eventName = rs.getString("EventName");
                 LocalDateTime startDate = LocalDateTime.of(rs.getDate("StartDate").toLocalDate(),
                         rs.getTime("StartDate").toLocalTime());
@@ -289,11 +223,6 @@ public class EventHandler implements IEventHandler {
                         rs.getTime("EndDate").toLocalTime());
                 int seats = rs.getInt("NumberOfSeats");
 
-<<<<<<< HEAD
-                //collecting event categories ids to find and map later event categories names to events
-                categoryIds.add(rs.getInt("EventCategoryID"));
-=======
->>>>>>> Java
 
                 int roomId = rs.getInt("RoomID");
                 int roomNumber = rs.getInt("RoomNumber");
@@ -302,39 +231,12 @@ public class EventHandler implements IEventHandler {
                 int capacity = rs.getInt("Capacity");
                 double area = rs.getDouble("Area");
 
-<<<<<<< HEAD
-                Event event = new Event(eventId,null,eventName,startDate,endDate,seats);
-                event.setRoom(new Room(roomId,roomNumber,block,capacity,area));
-
-                //add new event to events list
-                events.add(event);
-
-            }
-
-            //getting event categories names
-            List<String> eventCategoryNames;
-
-            if(categoryIds.size()>0) {
-                eventCategoryNames = eventCategoryHandler.getEventCategoriesById(categoryIds);
-
-                //mapping categories names to events
-                if (eventCategoryNames != null && eventCategoryNames.size() > 0) {
-                    for (int i = 0; i < events.size(); i++) {
-                        events.get(i).setEventCategory(eventCategoryNames.get(i));
-                    }
-                } else {
-                    throw new Exception("Event category names list is null/size of 0");
-                }
-            }
-
-=======
                 Event event = new Event(eventId, category, eventName, startDate, endDate, seats);
                 event.setRoom(new Room(roomId, roomNumber, block, capacity, area));
 
                 //add new event to events list
                 events.add(event);
             }
->>>>>>> Java
             return events;
 
         } catch (Exception e) {
@@ -365,18 +267,11 @@ public class EventHandler implements IEventHandler {
         try (Connection connection = getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-<<<<<<< HEAD
-            //checking if event category and event name and start date are valid
-            if ((event.getEventCategory() != null && event.getEventCategory().length() > 0) &&
-                    (event.getEventName() != null && event.getEventName().length() > 0) &&
-                    (event.getStartDate() != null && event.getStartDate().isAfter(LocalDateTime.now()))) {
-=======
             //checking if event category and event name and start date and host, room, schedule are valid
             if ((event.getEventCategory() != null && event.getEventCategory().length() > 0) &&
                     (event.getEventName() != null && event.getEventName().length() > 0) &&
                     (event.getStartDate() != null && event.getStartDate().isAfter(LocalDateTime.now())) &&
                     event.getHost() != null && event.getRoom() != null && event.getCampus() != null) {
->>>>>>> Java
 
                 statement = connection.prepareStatement("insert into dbo.Event(EventName ,StartDate ,EndDate ,NumberOfSeats) " +
                         "values(?,?,?,?)", new String[]{"EventID"}); //setting that jdbc returns values of column EventID
@@ -394,11 +289,7 @@ public class EventHandler implements IEventHandler {
                     return false;
                 }
 
-<<<<<<< HEAD
-                if(!eventCategoryHandler.attachCategoryToEvent(event.getEventCategory(),eventID)) {
-=======
                 if (!eventCategoryHandler.attachCategoryToEvent(event.getEventCategory(), eventID)) {
->>>>>>> Java
                     deleteEvent(eventID);
                     return false;
                 }
@@ -423,12 +314,8 @@ public class EventHandler implements IEventHandler {
             } else {
                 throw new Exception("Event category not valid:" + event.getEventCategory() +
                         " or event name not valid:" + event.getEventName() +
-<<<<<<< HEAD
-                        " or event start date not valid:" + event.getStartDate());
-=======
                         " or event start date not valid:" + event.getStartDate() +
                         " or host/room/campus is null");
->>>>>>> Java
             }
 
         } catch (Exception e) {
@@ -451,34 +338,14 @@ public class EventHandler implements IEventHandler {
         }
     }
 
-<<<<<<< HEAD
-    public boolean updateEvent(Event event) {
-        PreparedStatement statement = null;
-=======
     public boolean requestEvent(Event event) {
         int eventID = 0;
         PreparedStatement statement = null;
         ResultSet rs = null;
->>>>>>> Java
 
         try (Connection connection = getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-<<<<<<< HEAD
-            statement = connection.prepareStatement("update dbo.Event set EventName = ?,StartDate = ?, EndDate = ?, NumberOfSeats = ? " +
-                    "where EventID = ?");
-            statement.setString(1, event.getEventName());
-            statement.setString(2, event.getStartDate().format(mssqlDateFormat));
-            statement.setString(3, event.getEndDate().format(mssqlDateFormat));
-            statement.setInt(4, event.getNumberOfSeats());
-            statement.setInt(5, event.getId());
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
-=======
             //checking if event category, event name, start date and host, campus are valid
             if ((event.getEventCategory() != null && event.getEventCategory().length() > 0) &&
                     (event.getEventName() != null && event.getEventName().length() > 0) &&
@@ -524,7 +391,6 @@ public class EventHandler implements IEventHandler {
                         " or event name not valid:" + event.getEventName() +
                         " or event start date not valid:" + event.getStartDate());
             }
->>>>>>> Java
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -537,9 +403,6 @@ public class EventHandler implements IEventHandler {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-<<<<<<< HEAD
-        }
-=======
             if (rs != null)
                 try {
                     rs.close();
@@ -587,7 +450,6 @@ public class EventHandler implements IEventHandler {
         }
         return false;
 
->>>>>>> Java
     }
 
     public boolean deleteEvent(int id) {
@@ -618,8 +480,6 @@ public class EventHandler implements IEventHandler {
         }
     }
 
-<<<<<<< HEAD
-=======
     public boolean deletePendingEvent(int id) {
         PreparedStatement statement = null;
 
@@ -648,5 +508,4 @@ public class EventHandler implements IEventHandler {
         }
     }
 
->>>>>>> Java
 }
