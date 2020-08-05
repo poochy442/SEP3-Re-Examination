@@ -4,12 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataClasses;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace Server.Adapter
 {
     public class EventAdapter
     {
         public List<Event> events;
+        public HttpClient Http;
         public EventAdapter()
         {
             events = new List<Event>
@@ -24,17 +28,19 @@ namespace Server.Adapter
                     new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"))
             };
             events[0].NumberOfSeats = 50;
+            Http = new HttpClient { BaseAddress = new Uri("http://localhost:8080/") };
         }
 
         public async Task<List<Event>> GetEvents()
         {
-            // TODO: Query Database
-            return events;
+            HttpResponseMessage rm = await Http.GetAsync("event/upcoming");
+            String json = await rm.Content.ReadAsStringAsync();
+            return events = JsonConvert.DeserializeObject<List<Event>>(json);
         }
 
         public async Task<Event> GetEvent(int id)
         {
-            // TODO: Query Database
+            await GetEvents();
             foreach (Event e in events)
             {
                 if (e.Id == id)
@@ -46,38 +52,23 @@ namespace Server.Adapter
 
         public async Task<ActionResult<bool>> AddEvent(Event e)
         {
-            // TODO: Query Database
-            events.Add(e);
-
-            return true;
+            HttpResponseMessage rm = await Http.PostAsync("create", new StringContent(JsonConvert.SerializeObject(e)));
+            String json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<bool>(json);
         }
 
         public async Task<ActionResult<bool>> EditEvent(int id, Event e)
         {
-            // TODO: Query Database
-            for (int i = 0; i < events.Count; i++)
-            {
-                if (events[i].Id == id)
-                {
-                    events[i] = e;
-                    return true;
-                }
-            }
-
-            return false;
+            HttpResponseMessage rm = await Http.PutAsync("update", new StringContent(JsonConvert.SerializeObject(e)));
+            String json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<bool>(json);
         }
 
         public async Task<ActionResult<bool>> CancelEvent(int id)
         {
-            for (int i = 0; i < events.Count; i++)
-            {
-                if (events[i].Id == id)
-                {
-                    events.RemoveAt(i);
-                    return true;
-                }
-            }
-            return false;
+            HttpResponseMessage rm = await Http.DeleteAsync($"delete?id={id}");
+            String json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<bool>(json);
         }
     }
 }

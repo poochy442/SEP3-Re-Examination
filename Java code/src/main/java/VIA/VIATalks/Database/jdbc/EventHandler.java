@@ -31,6 +31,36 @@ public class EventHandler implements IEventHandler {
         hostHandler = new HostHandler(); //!! make singleton for handlers !!
         roomHandler = new RoomHandler(); //!! make singleton for handlers !!
         scheduleHandler = new ScheduleHandler(); //!! make singleton for handlers !!
+
+        LocalDateTime now = LocalDateTime.now();
+        List<Event> events = getUpcomingEvents(now);
+        if(events.size() < 1){
+            createEvent(new Event(
+                    1,
+                    "Educational",
+                    "How to be cool",
+                    now.plusHours(36),
+                    now.plusHours(38),
+                    100,
+                    25,
+                    new Host(
+                            1,
+                            "Kenneth",
+                            "Jensen",
+                            "email",
+                            "22667902"),
+                    new Room(
+                            1,
+                            301,
+                            '3',
+                            100,
+                            45),
+                    new Campus(
+                            1,
+                            "Horsens",
+                            8700,
+                            "School Address")));
+        }
     }
 
     //Establish connection to db and return it
