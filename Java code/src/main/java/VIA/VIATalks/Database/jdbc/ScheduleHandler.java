@@ -57,8 +57,6 @@ public class ScheduleHandler implements IScheduleHandler {
                 }
         }
     }
-<<<<<<< HEAD
-=======
 
     public boolean attachScheduleToPendingEvent(Campus campus, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
@@ -94,5 +92,4 @@ public class ScheduleHandler implements IScheduleHandler {
                 }
         }
     }
->>>>>>> Java
 }

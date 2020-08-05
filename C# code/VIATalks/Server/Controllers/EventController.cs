@@ -14,10 +14,10 @@ namespace Server.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private EventAdapter adapter;
-        public EventController()
+        private EventAdapter Adapter { get; set; }
+        public EventController(EventAdapter adapter)
         {
-            adapter = new EventAdapter();
+            Adapter = adapter;
         }
 
         [HttpGet]
@@ -25,16 +25,15 @@ namespace Server.Controllers
         {
             // TODO: Query Database
             Console.WriteLine("GetEvents called");
-            return await adapter.GetEvents();
+            return await Adapter.GetEvents();
         }
 
-        [HttpGet("{eventName}")]
-        public async Task<Event> GetEvent(
-            [FromQuery] String eventName)
+        [HttpGet("{id:int}")]
+        public async Task<Event> GetEvent(int id)
         {
             // TODO: Query Database
             Console.WriteLine("GetEvent called");
-            return await adapter.GetEvent(eventName);
+            return await Adapter.GetEvent(id);
         }
 
         [HttpPost]
@@ -43,7 +42,7 @@ namespace Server.Controllers
         {
             // TODO: Query Database
             Console.WriteLine("AddEvent called");
-            return await adapter.AddEvent(e);
+            return await Adapter.AddEvent(e);
         }
 
         [HttpPut]
@@ -52,7 +51,7 @@ namespace Server.Controllers
             [FromBody] Event e)
         {
             Console.WriteLine("EditEvent called");
-            return await adapter.EditEvent(id, e);
+            return await Adapter.EditEvent(id, e);
         }
 
         [HttpDelete]
@@ -60,7 +59,7 @@ namespace Server.Controllers
             [FromQuery] int id)
         {
             Console.WriteLine("CancelEvent called");
-            return await adapter.CancelEvent(id);
+            return await Adapter.CancelEvent(id);
         }
 
     }

@@ -23,6 +23,7 @@ namespace Server.Adapter
                     DateTime.Now.AddHours(2),
                     new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"))
             };
+            events[0].NumberOfSeats = 50;
         }
 
         public async Task<List<Event>> GetEvents()
@@ -31,12 +32,12 @@ namespace Server.Adapter
             return events;
         }
 
-        public async Task<Event> GetEvent(String eventName)
+        public async Task<Event> GetEvent(int id)
         {
             // TODO: Query Database
             foreach (Event e in events)
             {
-                if (e.EventName == eventName)
+                if (e.Id == id)
                     return e;
             }
 
@@ -54,9 +55,9 @@ namespace Server.Adapter
         public async Task<ActionResult<bool>> EditEvent(int id, Event e)
         {
             // TODO: Query Database
-            for(int i = 0; i < events.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
-                if(events[i].Id == id)
+                if (events[i].Id == id)
                 {
                     events[i] = e;
                     return true;
@@ -68,9 +69,9 @@ namespace Server.Adapter
 
         public async Task<ActionResult<bool>> CancelEvent(int id)
         {
-            for(int i = 0; i < events.Count; i++)
+            for (int i = 0; i < events.Count; i++)
             {
-                if(events[i].Id == id)
+                if (events[i].Id == id)
                 {
                     events.RemoveAt(i);
                     return true;

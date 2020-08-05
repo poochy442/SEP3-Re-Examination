@@ -27,13 +27,9 @@ public class RoomController {
         return handler.getRoomsForCampus(campus);
     }
 
-<<<<<<< HEAD
-    @GetMapping(path = "/booked")
-    public List<Room> getBookedRoomsForCampus(@RequestBody Campus campus) {return handler.getBookedRoomsForCampus(campus);}
-=======
+
     /*@GetMapping(path = "/booked")
     public List<Room> getBookedRoomsForCampus(@RequestBody Campus campus) {return handler.getBookedRoomsForCampus(campus);}*/
->>>>>>> Java
 
     // PUT: room/update
     // Updates room for the event in the db

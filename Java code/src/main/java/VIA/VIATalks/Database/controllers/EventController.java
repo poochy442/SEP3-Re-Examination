@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,12 +30,16 @@ public class EventController {
     // GET: event/upcoming
     // Gets all upcoming events from the db and returns it
     @GetMapping(path = "/upcoming")
-    public List<Event> getAllEvents(@RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime date) {
+    public List<Event> getAllEvents(@RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime date) {
+        if(date == null)
+            date = LocalDateTime.now();
         return eventHandler.getUpcomingEvents(date);
     }
 
-<<<<<<< HEAD
-=======
+    private LocalDateTime getDate(){
+        return LocalDateTime.now();
+    }
+
     //GET: event/request/all
     //Returns all pending events from db
     @GetMapping(path = "/request/all")
@@ -42,7 +47,6 @@ public class EventController {
         return eventHandler.getAllRequestedEvents();
     }
 
->>>>>>> Java
     //GET: event/categoriy/all
     //Returns all event categories stored in db
     @GetMapping(path = "/category/all")
@@ -66,8 +70,6 @@ public class EventController {
         return eventHandler.createEvent(event);
     }
 
-<<<<<<< HEAD
-=======
     // POST: event/create
     // Adds the passed event using the db and returns whether or not it succeeded
     @PostMapping(path = "/request")
@@ -85,7 +87,6 @@ public class EventController {
         return false;
     }
 
->>>>>>> Java
     // PUT: event/category/update
     // Updates the event category with the passed  event and category name using the db
     @PutMapping(path = "category/update")
@@ -107,8 +108,6 @@ public class EventController {
         return eventHandler.deleteEvent(id);
     }
 
-<<<<<<< HEAD
-=======
     // DELETE: event/pending/delete
     // Deletes the pending event with the passed id to be equal to the event's id which to be deleted from the db
     @DeleteMapping(path = "/pending/delete")
@@ -116,5 +115,4 @@ public class EventController {
         return eventHandler.deletePendingEvent(id);
     }
 
->>>>>>> Java
 }

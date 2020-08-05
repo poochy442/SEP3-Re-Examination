@@ -2,6 +2,7 @@
 @using DataClasses
 @using Client.Models
 @using System.Net.Http
+@using Newtonsoft.Json
 @inject HttpClient Http
 @inject NavigationManager UriHelper
 
@@ -59,16 +60,14 @@
     [Parameter]
     public int EventId { get; set; }
 
-    protected override void OnInitialized()
+    private Event EventEdit { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        eventModel.StartTime = DateTime.Now;
-        eventModel.EndTime = DateTime.Now.AddHours(2);
+        List<Event> events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
+        EventEdit = events[0];
+        eventModel.SetEvent(EventEdit);
         editContext = new EditContext(eventModel);
-        eventModel.Host = new Event.EventHost(
-            "Kenneth",
-            "Jensen",
-            "123@abc.com",
-            "12345678");
     }
 
     private async Task HandleValidSubmit()

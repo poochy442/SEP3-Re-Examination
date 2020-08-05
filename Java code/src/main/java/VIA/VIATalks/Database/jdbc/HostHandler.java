@@ -84,8 +84,6 @@ public class HostHandler implements IHostHandler {
 
     }
 
-<<<<<<< HEAD
-=======
     public boolean attachHostToPendingEvent(Host host, int eventId) {
         int hostID = 0; //holds host id
         boolean result = false; //holds return of the method
@@ -105,8 +103,6 @@ public class HostHandler implements IHostHandler {
         }
     }
 
-
->>>>>>> Java
     private int getHostIdByEmail(String email) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -168,8 +164,6 @@ public class HostHandler implements IHostHandler {
         }
     }
 
-<<<<<<< HEAD
-=======
     private boolean attachExistingHostToPendingEvent(Host host, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
 
@@ -197,7 +191,6 @@ public class HostHandler implements IHostHandler {
         }
     }
 
->>>>>>> Java
     private boolean attachNewHostToEvent(Host host, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -257,26 +250,6 @@ public class HostHandler implements IHostHandler {
         }
     }
 
-<<<<<<< HEAD
-    public boolean updateHost(Host host) {
-        PreparedStatement statement = null; //statement to execute db query
-
-        try (Connection connection = getConnectionToDB()) {
-
-            statement = connection.prepareStatement("update dbo.Host set FirstName = ?, LastName = ?, Email = ?, Telephone= ? " +
-                    "where HostID = ?");
-            statement.setString(1, host.getHostFirstName());
-            statement.setString(2, host.getHostLastName());
-            statement.setString(3, host.getHostEmail());
-            statement.setString(4, host.getHostTelephone());
-            statement.setInt(5, host.getId());
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            } else {
-                throw new Exception("Couldnt find host with id:" + host.getId());
-=======
     private boolean attachNewHostToPendingEvent(Host host, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
@@ -314,17 +287,10 @@ public class HostHandler implements IHostHandler {
             } else {
                 throw new Exception("host name wrong:" + host.getHostFirstName() + " " + host.getHostLastName() +
                         " or email:" + host.getHostEmail());
->>>>>>> Java
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;
-<<<<<<< HEAD
-
-=======
->>>>>>> Java
         } finally {
             if (statement != null)
                 try {
@@ -332,9 +298,6 @@ public class HostHandler implements IHostHandler {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-<<<<<<< HEAD
-        }
-=======
             if (rs != null)
                 try {
                     rs.close();
@@ -382,6 +345,5 @@ public class HostHandler implements IHostHandler {
             }
         }
         return false;
->>>>>>> Java
     }
 }

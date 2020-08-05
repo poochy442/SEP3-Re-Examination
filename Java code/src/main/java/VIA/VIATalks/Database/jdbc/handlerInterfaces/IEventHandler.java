@@ -7,14 +7,6 @@ import java.util.List;
 
 public interface IEventHandler {
     public List<Event> getUpcomingEvents(LocalDateTime date);
-<<<<<<< HEAD
-    public List<Event> getEventsBookedInRooms(int scheduleID, LocalDateTime date);
-    public boolean createEvent(Event event);
-    public boolean updateEvent(Event event);
-    public boolean deleteEvent(int id);
-
-
-=======
     public List<Event> getAllRequestedEvents();
     public List<Event> getEventsBookedInRooms(int scheduleID, LocalDateTime date);
     public boolean createEvent(Event event);
@@ -22,5 +14,4 @@ public interface IEventHandler {
     public boolean updateEvent(Event event);
     public boolean deleteEvent(int id);
     public boolean deletePendingEvent(int id);
->>>>>>> Java
 }

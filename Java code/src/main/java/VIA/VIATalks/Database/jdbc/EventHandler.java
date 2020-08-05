@@ -14,7 +14,9 @@ import java.util.List;
 
 public class EventHandler implements IEventHandler {
     //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    private final String dbConnectionString = "jdbc:sqlserver://DESKTOP-ADI2GPO\\Bruger:1433;databaseName=VIATalks;";
+
+    //LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020
 
     private TicketHandler ticketHandler;
     private IEventCategoryHandler eventCategoryHandler;
@@ -33,7 +35,7 @@ public class EventHandler implements IEventHandler {
 
     //Establish connection to db and return it
     private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+        return DriverManager.getConnection(dbConnectionString, "VIATalks_Admin", "Password");
     }
 
     public List<Event> getUpcomingEvents(LocalDateTime date) {

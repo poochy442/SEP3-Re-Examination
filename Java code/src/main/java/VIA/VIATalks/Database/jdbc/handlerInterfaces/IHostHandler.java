@@ -7,10 +7,7 @@ import java.util.List;
 public interface IHostHandler {
     public List<Host> getAllHosts();
     public boolean attachHostToEvent(Host host, int eventId);
-<<<<<<< HEAD
-=======
     public boolean attachHostToPendingEvent(Host host, int eventID);
->>>>>>> Java
     public boolean updateHost(Host host);
 
 }
