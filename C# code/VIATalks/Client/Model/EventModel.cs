@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Client.Models
+namespace Client.Model
 {
     public class EventModel
     {
