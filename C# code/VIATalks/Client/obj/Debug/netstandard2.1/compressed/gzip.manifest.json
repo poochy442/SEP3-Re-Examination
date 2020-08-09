@@ -1,7 +1,7 @@
 {
   "FilesToCompress": [
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\j9Clwmib21brgPIutCLh8WIGda7Bdn9U5Des2zLhDTM=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\Hsp9aOp9LADuCF4_XfGoTvDWAmyZBsgzwBtN7UfgnEs=.hash",
       "Source": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\Client.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Client.dll.gz"
     },
@@ -191,7 +191,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.Extensions.Logging.Abstractions.dll.gz"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\-kp1880WYvW1vaSVg2CdeKUozjhCKonTEki5yL5dnDY=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\3ESONyEp6BUxo-lDlwlyh-dznhfjtoS3wJ-MWywoMNc=.hash",
       "Source": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\Shared.dll",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Shared.dll.gz"
     },
@@ -266,12 +266,12 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Microsoft.JSInterop.WebAssembly.dll.gz"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\yp0ieMA6vG6CYU-gmtfnbyk225yfpauGG9zfapIBkJg=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\oxPjEzWmphGU1xi2KU-G_gqfDcu3TqEKRtqFX0cqGfE=.hash",
       "Source": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\Client.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Client.pdb.gz"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\olM-hGpn0BMeINgQOyWMZD7Sje54uJtSB3aw4d3NfYo=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\CR3_GxaOicJQjTPtk1GadELOfOiShb5pdF32ts7G31Y=.hash",
       "Source": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Client\\obj\\Debug\\netstandard2.1\\blazor\\unlinked\\Shared.pdb",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/_bin\/Shared.pdb.gz"
     },
@@ -296,7 +296,7 @@
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.webassembly.js.gz"
     },
     {
-      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\iRNpefBNhZ4FE5HzfQctLwmmVbxaF0k6zUx4Yte8v98=.hash",
+      "InputSource": "obj\\Debug\\netstandard2.1\\integrity\\JIPQN436S3MlWeQIyx-mV_e6Hf1tA4z_VG7EuKYSJI4=.hash",
       "Source": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Client\\obj\\Debug\\netstandard2.1\\blazor\\blazor.boot.json",
       "Target": "obj\\Debug\\netstandard2.1\\compressed\\_framework\/blazor.boot.json.gz"
     }

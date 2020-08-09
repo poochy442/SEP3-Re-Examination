@@ -743,8 +743,8 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\RazorDeclaration\Pages\Rooms.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\EditRoom.razor.g.cs
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\Razor\Pages\Rooms.razor.g.cs
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\j9Clwmib21brgPIutCLh8WIGda7Bdn9U5Des2zLhDTM=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\-kp1880WYvW1vaSVg2CdeKUozjhCKonTEki5yL5dnDY=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\yp0ieMA6vG6CYU-gmtfnbyk225yfpauGG9zfapIBkJg=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\olM-hGpn0BMeINgQOyWMZD7Sje54uJtSB3aw4d3NfYo=.hash
-C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\iRNpefBNhZ4FE5HzfQctLwmmVbxaF0k6zUx4Yte8v98=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\3ESONyEp6BUxo-lDlwlyh-dznhfjtoS3wJ-MWywoMNc=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\CR3_GxaOicJQjTPtk1GadELOfOiShb5pdF32ts7G31Y=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\Hsp9aOp9LADuCF4_XfGoTvDWAmyZBsgzwBtN7UfgnEs=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\oxPjEzWmphGU1xi2KU-G_gqfDcu3TqEKRtqFX0cqGfE=.hash
+C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\obj\Debug\netstandard2.1\integrity\JIPQN436S3MlWeQIyx-mV_e6Hf1tA4z_VG7EuKYSJI4=.hash

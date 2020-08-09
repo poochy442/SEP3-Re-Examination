@@ -16,6 +16,7 @@
                 <th>End time</th>
                 <th>Capacity</th>
                 <th>Registered Users</th>
+                <th>Room Number</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                     <td>@e.EndTime</td>
                     <td>@e.NumberOfSeats</td>
                     <td>@e.RegisteredUsers</td>
+                    <td>@e.Room.RoomNumber</td>
                     <!-- TODO: Authentication-->
                     <td><a href="edit_event/@e.Id">Edit</a></td>
                     @if (e.NumberOfSeats > e.RegisteredUsers)

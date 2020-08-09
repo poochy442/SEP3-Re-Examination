@@ -1,5 +1,4 @@
-﻿using Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -49,7 +48,9 @@ namespace DataClasses
             String category,
             DateTime startTime,
             DateTime endTime,
-            EventHost host)
+            EventHost host,
+            Room room,
+            Campus campus)
         {
             Id = id;
             Category = category;
@@ -57,6 +58,8 @@ namespace DataClasses
             StartTime = startTime;
             EndTime = endTime;
             Host = host;
+            Room = room;
+            Campus = campus;
         }
 
         public override string ToString()
