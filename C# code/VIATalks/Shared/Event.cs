@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -30,6 +31,8 @@ namespace DataClasses
         public int NumberOfSeats { get; set; }
         public int RegisteredUsers { get; set; }
         public EventHost Host { get; set; }
+        public Room Room { get; set; }
+        public Campus Campus { get; set; }
         public enum CATEGORIES
         {
             Educational,
