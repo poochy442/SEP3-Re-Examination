@@ -23,8 +23,8 @@ public class EventController {
 
 
     public EventController() {
-        eventHandler = new EventHandler();
-        categoryHandler = new EventCategoryHandler();
+        eventHandler = EventHandler.getInstance();
+        categoryHandler = EventCategoryHandler.getInstance();
     }
 
     // GET: event/upcoming

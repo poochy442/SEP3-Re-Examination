@@ -12,7 +12,7 @@ public class ScheduleController {
     private IScheduleHandler handler;  //DAO for events
 
     public ScheduleController() {
-        handler = new ScheduleHandler();
+        handler = ScheduleHandler.getInstance();
     }
 
     // POST: host/attach

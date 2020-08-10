@@ -12,7 +12,7 @@ public class TicketController {
     private ITicketHandler handler;
 
     public TicketController() {
-        handler = new TicketHandler();
+        handler = TicketHandler.getInstance();
     }
 
     //POST: ticket/issue
@@ -20,6 +20,16 @@ public class TicketController {
     @PostMapping("/issue")
     public boolean issueTicketForEvent(@RequestBody Event event, @RequestParam(value = "userId") int userId)
     {return handler.issueTicketForEvent(event,userId);}
+
+    //DELETE: ticket/delete
+    //Delete all tickets for the canceled event
+    @DeleteMapping("/delete")
+    public boolean deleteTicketsForEvent(@RequestParam(value = "eventId") int eventId) {
+        if(eventId > 0) {
+            return handler.deleteTicketsForEvent(eventId);
+        }
+        return false;
+    }
 
     //getTicketsForEvents
     //getTicketForEvent

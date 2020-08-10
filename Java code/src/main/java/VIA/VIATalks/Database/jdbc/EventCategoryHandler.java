@@ -6,28 +6,40 @@ import VIA.VIATalks.Database.jdbc.handlerInterfaces.IEventCategoryHandler;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class EventCategoryHandler implements IEventCategoryHandler {
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    //implementing singleton
+    private static EventCategoryHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //Constructor
-    public EventCategoryHandler() {
+
+    //private constructor for singleton implementation
+    private EventCategoryHandler() {
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static EventCategoryHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new EventCategoryHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<String> getAllEventCategories() {
-        // Get monitor access
+        // Acquire read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
 
         List<String> categories = new ArrayList<>(); //holds event categories
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("select * from dbo.EventCategory");
             rs = statement.executeQuery();
@@ -38,10 +50,17 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                 //add new category to categories list
                 categories.add(rs.getString("Name"));
             }
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return categories;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
 
         } finally {
@@ -61,12 +80,12 @@ public class EventCategoryHandler implements IEventCategoryHandler {
     }
 
 
-    public List<String> getEventCategoriesById(List<Integer> categoryIds) {
+    /*public List<String> getEventCategoriesById(List<Integer> categoryIds) {
         List<String> categories = new ArrayList<>();  //holds event categories names
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             statement = connection.prepareStatement("select Name from dbo.EventCategory where EventCategoryID = ?");
 
             //go through all categories and et the name
@@ -98,9 +117,12 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                 }
         }
 
-    }
+    }*/
 
     public boolean attachCategoryToEvent(String category,int eventID) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         int categoryID = 0; //holds host id
         PreparedStatement statement = null; //statement to execute db query
 
@@ -109,19 +131,27 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         //checking if provided category exists in db
         if (categoryID > 0) {
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 statement = connection.prepareStatement("update Event set EventCategoryID = ? where EventID = ?");
 
                 statement.setInt(1, categoryID);
                 statement.setInt(2, eventID);
                 int rowsAffected = statement.executeUpdate();
+
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 }
                 throw new Exception("Couldn't find existing event with eventId:" + eventID);
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return false;
             } finally {
                 if (statement != null)
@@ -133,10 +163,16 @@ public class EventCategoryHandler implements IEventCategoryHandler {
             }
 
         }
+        // Release write from synchronization monitor
+        SynchronizationMonitor.getInstance().releaseWrite();
+
         return false;
     }
 
     public boolean attachCategoryToPendingEvent(String category, int eventID) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         int categoryID = 0; //holds host id
         PreparedStatement statement = null; //statement to execute db query
 
@@ -145,19 +181,28 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         //checking if provided category exists in db
         if (categoryID > 0) {
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 statement = connection.prepareStatement("update PendingEvent set EventCategoryID = ? where PendingEventID = ?");
 
                 statement.setInt(1, categoryID);
                 statement.setInt(2, eventID);
                 int rowsAffected = statement.executeUpdate();
+
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 }
+
                 throw new Exception("Couldn't find existing pending event with eventId:" + eventID);
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return false;
             } finally {
                 if (statement != null)
@@ -169,6 +214,9 @@ public class EventCategoryHandler implements IEventCategoryHandler {
             }
 
         }
+        // Release write from synchronization monitor
+        SynchronizationMonitor.getInstance().releaseWrite();
+
         return false;
     }
 
@@ -176,7 +224,7 @@ public class EventCategoryHandler implements IEventCategoryHandler {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             statement = connection.prepareStatement("select EventCategoryID from dbo.EventCategory where Name = ?");
 
             statement.setString(1, category);
@@ -209,12 +257,15 @@ public class EventCategoryHandler implements IEventCategoryHandler {
     public boolean updateEventCategory(Event event, String category) {
         //checking if event is not null
         if(event != null) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
             int categoryID = getEventCategoryIdByName(category);
 
             if(categoryID > 0) {
                 PreparedStatement statement = null;
 
-                try (Connection connection = getConnectionToDB()) {
+                try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
 
                     statement = connection.prepareStatement("update dbo.Event set EventCategoryID = ? where EventID = ?");
@@ -222,7 +273,11 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                     statement.setInt(2, event.getId());
 
                     int rowsAffected = statement.executeUpdate();
+
                     if (rowsAffected > 0) {
+                        // Release write from synchronization monitor
+                        SynchronizationMonitor.getInstance().releaseWrite();
+
                         return true;
                     }
                     else {
@@ -231,6 +286,10 @@ public class EventCategoryHandler implements IEventCategoryHandler {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return false;
 
                 } finally {
@@ -242,6 +301,7 @@ public class EventCategoryHandler implements IEventCategoryHandler {
                         }
                 }
             }
+
         }
         return false;
     }

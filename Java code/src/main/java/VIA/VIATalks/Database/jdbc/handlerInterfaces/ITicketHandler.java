@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ITicketHandler {
     public boolean issueTicketForEvent(Event event, int userId);
+    public boolean deleteTicketsForEvent(int eventId);
     //public List<Integer> getTicketsCountForEvents(List<Event> events);
 
 }
