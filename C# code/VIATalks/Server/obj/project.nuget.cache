@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "ojk2RcyuqLK+ejDLOtD2wyBzGEeqwDAt5YDVxhJowcbSQkjB+HHXxN9V29jP6rZ8FwaNNJ02E5v8ACNtZNOD0w==",
+  "dgSpecHash": "SOGqliTDi9Zdg4ULj4HIixdOLf/3cbw3ukegumH7ZbLLy7dCI818fa09dEjZayPVYZM7VD7DcVIVRkZXI1JG7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Server\\Server.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.aspnetcore.metadata\\3.1.6\\microsoft.aspnetcore.metadata.3.1.6.nupkg.sha512",
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.6\\microsoft.extensions.dependencyinjection.abstractions.3.1.6.nupkg.sha512",
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.6\\microsoft.extensions.logging.abstractions.3.1.6.nupkg.sha512",
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.options\\3.1.6\\microsoft.extensions.options.3.1.6.nupkg.sha512",
+    "C:\\Users\\Bruger\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.6\\microsoft.extensions.primitives.3.1.6.nupkg.sha512",
     "C:\\Users\\Bruger\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []

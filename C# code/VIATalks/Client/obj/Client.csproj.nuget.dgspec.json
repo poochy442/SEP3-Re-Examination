@@ -30,8 +30,8 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj"
+              "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj": {
+                "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj"
               }
             }
           }
@@ -45,6 +45,10 @@
       "frameworks": {
         "netstandard2.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "Microsoft.AspNetCore.Components.WebAssembly": {
               "target": "Package",
               "version": "[3.2.0, )"
@@ -58,6 +62,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.2.0, )"
+            },
+            "Microsoft.AspNetCore.Cryptography.KeyDerivation": {
+              "target": "Package",
+              "version": "[3.1.6, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -87,12 +95,12 @@
         }
       }
     },
-    "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj": {
+    "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj",
-        "projectName": "Shared",
-        "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj",
+        "projectName": "DataClasses",
+        "projectPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\DataClasses.csproj",
         "packagesPath": "C:\\Users\\Bruger\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Bruger\\Documents\\GitHub\\SEP3_Re\\C# code\\VIATalks\\Shared\\obj\\",
         "projectStyle": "PackageReference",
@@ -124,6 +132,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "Microsoft.AspNetCore.Authorization": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",

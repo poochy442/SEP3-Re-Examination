@@ -1,8 +1,6 @@
 ﻿@page "/edit_event/{EventId:int}"
-@using DataClasses
 @using Client.Model
 @using System.Net.Http
-@using Newtonsoft.Json
 @inject HttpClient Http
 @inject NavigationManager UriHelper
 
@@ -170,11 +168,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // List<Event> events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
-        List<Event> events = new List<Event>()
-        {
-            TestEvent
-        };
+        List<Event> events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
         EventEdit = events[0];
         eventModel.SetEvent(EventEdit);
         editContext = new EditContext(eventModel);
@@ -211,23 +205,13 @@
     private async Task GetRooms()
     {
         Console.WriteLine("GetRooms called");
-        // Test
-        Rooms = new List<Room>()
-    {
-            TestRoom
-        };
-        // Rooms = await Http.GetFromJsonAsync<List<Room>>("room");
+        Rooms = await Http.GetFromJsonAsync<List<Room>>("room");
     }
 
     private async Task GetCampuses()
     {
         Console.WriteLine("GetCampuses called");
-        // Test
-        Campuses = new List<Campus>()
-        {
-            TestCampus
-        };
-        // Campuses = await Http.GetFromJsonAsync<List<Campus>>("campus");
+        Campuses = await Http.GetFromJsonAsync<List<Campus>>("campus");
     }
 
     private async Task CancelEvent()

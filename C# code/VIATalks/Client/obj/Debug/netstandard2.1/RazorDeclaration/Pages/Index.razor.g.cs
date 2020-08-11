@@ -77,6 +77,13 @@ using Client.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 10 "C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\_Imports.razor"
+using DataClasses;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Client\Pages\Index.razor"
 using Client.Pages;
 

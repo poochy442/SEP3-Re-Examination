@@ -1,0 +1,76 @@
+﻿@page "/login"
+@using Client.Security 
+@inject HttpClient Http
+@inject NavigationManager UriHelper 
+@inject UserManager User
+
+<h1>Login</h1>
+
+<EditForm OnSubmit="LoginAsync">
+
+    <h2>Input your credentials:</h2>
+
+    <p>
+        <label>
+            Username:
+            <InputText id="username" @bind-Value="Username" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Password:
+            <InputText id="password" @bind-Value="Password" />
+        </label>
+    </p>
+
+    <button type="submit">Login</button>
+
+    <p style="color:red">@ErrorMessage</p>
+</EditForm>
+
+@code {
+    private string Username { get; set; }
+    private string Password { get; set; }
+    private string ErrorMessage { get; set; } = "";
+
+    public async Task LoginAsync()
+    {
+        if (Username != null || Username == "")
+        {
+            ErrorMessage = "You must input username";
+            Password = "";
+            return;
+        }
+
+        if(Password != null || Password == "")
+        {
+            ErrorMessage = "You must input password";
+            Password = "";
+            return;
+        }
+
+        Console.WriteLine("Login called");
+
+        string hashedPass = UserManager.HashPassword(Password);
+
+        List<bool> signedIn = await Http.GetFromJsonAsync<List<bool>>($"user/login?username={Username}&password={hashedPass}");
+
+        if (!signedIn[0])
+        {
+            ErrorMessage = "Could not log in";
+            Password = "";
+            return;
+        }
+
+        User.LoggedIn = true;
+        if(signedIn[1] == true)
+        {
+            User.Access = UserManager.UserPrivilege.Admin;
+        } else
+        {
+            User.Access = UserManager.UserPrivilege.User;
+        }
+
+        UriHelper.NavigateTo("schedule");
+    }
+}
