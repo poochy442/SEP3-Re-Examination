@@ -6,35 +6,51 @@ import VIA.VIATalks.Database.jdbc.handlerInterfaces.IScheduleHandler;
 import VIA.VIATalks.Database.jdbc.handlerInterfaces.IUniversityCampusHandler;
 
 import java.sql.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ScheduleHandler implements IScheduleHandler {
+    private UniversityCampusHandler universityCampusHandler = UniversityCampusHandler.getInstance();
 
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
-    private IUniversityCampusHandler universityCampusHandler;
+    //implementing singleton
+    private static ScheduleHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //Constructor
-    public ScheduleHandler() {
-        universityCampusHandler = new UniversityCampusHandler();
+    //private constructor for singleton implementation
+    private ScheduleHandler() {
+
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static ScheduleHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new ScheduleHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     public boolean attachScheduleToEvent(Campus campus, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             if(universityCampusHandler.campusExistsOnAddress(campus.getAddress())) {
+                // Acquire write from synchronization monitor
+                SynchronizationMonitor.getInstance().acquireWrite();
+
                 statement = connection.prepareStatement("update Event set ScheduleID = (select ScheduleID from Campus where Address = ?) where EventID = ?");
                 statement.setString(1, campus.getAddress());
                 statement.setInt(2, eventId);
 
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 }
                 else {
@@ -47,6 +63,10 @@ public class ScheduleHandler implements IScheduleHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -61,15 +81,21 @@ public class ScheduleHandler implements IScheduleHandler {
     public boolean attachScheduleToPendingEvent(Campus campus, int eventId) {
         PreparedStatement statement = null; //statement to execute db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             if(universityCampusHandler.campusExistsOnAddress(campus.getAddress())) {
+                // Acquire write from synchronization monitor
+                SynchronizationMonitor.getInstance().acquireWrite();
+
                 statement = connection.prepareStatement("update PendingEvent set ScheduleID = (select ScheduleID from Campus where Address = ?) where PendingEventID = ?");
                 statement.setString(1, campus.getAddress());
                 statement.setInt(2, eventId);
 
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 }
                 else {
@@ -82,6 +108,10 @@ public class ScheduleHandler implements IScheduleHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)

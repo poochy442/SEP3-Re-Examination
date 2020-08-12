@@ -8,20 +8,29 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class UniversityCampusHandler implements IUniversityCampusHandler {
+    //implementing singleton
+    private static UniversityCampusHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    //private constructor for singleton implementation
+    private UniversityCampusHandler() {
 
-
-    //Constructor
-    public UniversityCampusHandler() {
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static UniversityCampusHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new UniversityCampusHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<University> getAllUniversities() {
@@ -29,7 +38,10 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        // Acquire read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("select * from dbo.University");
             rs = statement.executeQuery();
@@ -43,10 +55,17 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
                 //add new university to universities list
                 universities.add(new University(id,name,country));
             }
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return universities;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
 
         } finally {
@@ -72,7 +91,10 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
             PreparedStatement statement = null; //statement to execute db query
             ResultSet rs = null; //result set to get from executing db query
 
-            try (Connection connection = getConnectionToDB()) {
+            // Acquire read from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireRead();
+
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
                 statement = connection.prepareStatement("select * from dbo.Campus where UniversityID = ?");
                 statement.setInt(1,university.getId());
@@ -88,10 +110,17 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
                     //add new campus to campuses list
                     campuses.add(new Campus(id,city,postalCode,address));
                 }
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
+
                 return campuses;
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
+
                 return null;
 
             } finally {
@@ -116,11 +145,17 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        // Acquire read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("select CampusID from dbo.Campus where Address = ?");
             statement.setString(1,address);
             rs = statement.executeQuery();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
 
             if (rs.next()) {
                 int id = rs.getInt("CampusID");
@@ -132,6 +167,10 @@ public class UniversityCampusHandler implements IUniversityCampusHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return false;
 
         } finally {

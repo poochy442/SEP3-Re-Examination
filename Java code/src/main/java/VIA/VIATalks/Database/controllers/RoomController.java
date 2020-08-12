@@ -17,7 +17,7 @@ public class RoomController {
     private IRoomHandler handler;  //DAO for events
 
     public RoomController() {
-        handler = new RoomHandler();
+        handler = RoomHandler.getInstance();
     }
 
     //GET: room/campus

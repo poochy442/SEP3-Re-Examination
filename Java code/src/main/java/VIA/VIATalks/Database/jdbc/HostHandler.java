@@ -7,26 +7,40 @@ import VIA.VIATalks.Database.jdbc.handlerInterfaces.IHostHandler;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class HostHandler implements IHostHandler {
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    //implementing singleton
+    private static HostHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //Constructor
-    public HostHandler() {
+    //private constructor for singleton implementation
+    private HostHandler() {
+
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static HostHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new HostHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<Host> getAllHosts() {
+        // Acquire readfrom synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
         List<Host> hosts = new ArrayList<>(); //holds hosts
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("select * from dbo.Host");
             rs = statement.executeQuery();
@@ -42,10 +56,17 @@ public class HostHandler implements IHostHandler {
                 //add new host to universities list
                 hosts.add(new Host(id,fname,lname,email,telephone));
             }
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return hosts;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
 
         } finally {
@@ -104,13 +125,19 @@ public class HostHandler implements IHostHandler {
     }
 
     private int getHostIdByEmail(String email) {
+        // Access read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             statement = connection.prepareStatement("select HostID from Host where Email = ?");
             statement.setString(1, email);
             rs = statement.executeQuery();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
 
             if (rs.next()) {
                 return rs.getInt("HostID");
@@ -120,6 +147,10 @@ public class HostHandler implements IHostHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return 0;
         } finally {
             if (statement != null)
@@ -138,21 +169,32 @@ public class HostHandler implements IHostHandler {
     }
 
     private boolean attachExistingHostToEvent(Host host, int eventId) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null; //statement to execute db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             statement = connection.prepareStatement("update Event set HostID = ? where EventID = ?");
 
             statement.setInt(1, host.getId());
             statement.setInt(2, eventId);
             int rowsAffected = statement.executeUpdate();
+
             if (rowsAffected > 0) {
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return true;
             }
             throw new Exception("Couldn't find existing host with id:" + host.getId() + " or eventId is wrong:" + eventId);
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -165,21 +207,32 @@ public class HostHandler implements IHostHandler {
     }
 
     private boolean attachExistingHostToPendingEvent(Host host, int eventId) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null; //statement to execute db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             statement = connection.prepareStatement("update PendingEvent set HostID = ? where PendingEventID = ?");
 
             statement.setInt(1, host.getId());
             statement.setInt(2, eventId);
             int rowsAffected = statement.executeUpdate();
+
             if (rowsAffected > 0) {
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return true;
             }
             throw new Exception("Couldn't find existing host with id:" + host.getId() + " or pending eventId is wrong:" + eventId);
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -192,10 +245,13 @@ public class HostHandler implements IHostHandler {
     }
 
     private boolean attachNewHostToEvent(Host host, int eventId) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             //checking if host names and email are valid
             if ((host.getHostFirstName() != null && host.getHostFirstName().length() > 0) &&
@@ -219,7 +275,11 @@ public class HostHandler implements IHostHandler {
                     statement.setInt(1, host.getId());
                     statement.setInt(2, eventId);
                     int rowsAffected = statement.executeUpdate();
+
                     if (rowsAffected > 0) {
+                        // Release write from synchronization monitor
+                        SynchronizationMonitor.getInstance().releaseWrite();
+
                         return true;
                     }
                     throw new Exception("Couldn't find existing host with id:" + host.getId() + " or eventId is wrong:" + eventId);
@@ -233,6 +293,10 @@ public class HostHandler implements IHostHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -251,10 +315,13 @@ public class HostHandler implements IHostHandler {
     }
 
     private boolean attachNewHostToPendingEvent(Host host, int eventId) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             //checking if host names and email are valid
             if ((host.getHostFirstName() != null && host.getHostFirstName().length() > 0) &&
@@ -278,7 +345,11 @@ public class HostHandler implements IHostHandler {
                     statement.setInt(1, host.getId());
                     statement.setInt(2, eventId);
                     int rowsAffected = statement.executeUpdate();
+
                     if (rowsAffected > 0) {
+                        // Release write from synchronization monitor
+                        SynchronizationMonitor.getInstance().releaseWrite();
+
                         return true;
                     }
                     throw new Exception("Couldn't find existing host with id:" + host.getId() + " or pending eventId is wrong:" + eventId);
@@ -290,6 +361,10 @@ public class HostHandler implements IHostHandler {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -311,9 +386,12 @@ public class HostHandler implements IHostHandler {
 
         //checking if host is not null
         if(host != null) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
             PreparedStatement statement = null; //statement to execute db query
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
                 statement = connection.prepareStatement("update dbo.Host set FirstName = ?, LastName = ?, Email = ?, Telephone= ? " +
                         "where HostID = ?");
@@ -324,7 +402,11 @@ public class HostHandler implements IHostHandler {
                 statement.setInt(5, host.getId());
 
                 int rowsAffected = statement.executeUpdate();
+
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 } else {
                     throw new Exception("Couldnt find host with id:" + host.getId());
@@ -333,6 +415,10 @@ public class HostHandler implements IHostHandler {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return false;
 
             } finally {

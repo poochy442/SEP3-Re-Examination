@@ -6,18 +6,29 @@ import VIA.VIATalks.Database.jdbc.handlerInterfaces.ITicketHandler;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TicketHandler implements ITicketHandler {
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    //implementing singleton
+    private static TicketHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //Constructor
-    public TicketHandler() {
+    //private constructor for singleton implementation
+    private TicketHandler() {
+
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static TicketHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new TicketHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     /*public List<Integer> getTicketsCountForEvents(List<Event> events) {
@@ -69,7 +80,10 @@ public class TicketHandler implements ITicketHandler {
             PreparedStatement statement = null; //statement to execute db query
             ResultSet rs = null; //result set to get from executing db query
 
-            try (Connection connection = getConnectionToDB()) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
                 statement = connection.prepareStatement("select ScheduleID from Event where EventID = ?");
                 statement.setInt(1, event.getId());
@@ -91,6 +105,9 @@ public class TicketHandler implements ITicketHandler {
                         rs = statement.getGeneratedKeys();
 
                         if (rs.next()) {
+                            // Release write from synchronization monitor
+                            SynchronizationMonitor.getInstance().releaseWrite();
+
                             return true;
                         } else {
                             throw new Exception("Something went wrong while creating ticket for scheduleId:" +
@@ -106,6 +123,10 @@ public class TicketHandler implements ITicketHandler {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return false;
             } finally {
                 if (statement != null)
@@ -123,5 +144,37 @@ public class TicketHandler implements ITicketHandler {
             }
         }
         return false;
+    }
+
+    public boolean deleteTicketsForEvent(int eventId) {
+        PreparedStatement statement = null;
+
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
+            statement = connection.prepareStatement("delete from dbo.Ticket where EventID = ?");
+            statement.setInt(1, eventId);
+            statement.executeUpdate();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
+            return false;
+        } finally {
+            if (statement != null)
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+        }
     }
 }

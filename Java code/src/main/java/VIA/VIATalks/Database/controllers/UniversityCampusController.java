@@ -15,7 +15,7 @@ public class UniversityCampusController {
     private IUniversityCampusHandler handler; //DAO for events
 
     public UniversityCampusController() {
-        handler = new UniversityCampusHandler();
+        handler = UniversityCampusHandler.getInstance();
     }
 
     // GET: university/all

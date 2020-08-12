@@ -11,37 +11,36 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class EventHandler implements IEventHandler {
     //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://DESKTOP-ADI2GPO\\Bruger:1433;databaseName=VIATalks;";
+   //private final String dbConnectionString = "jdbc:sqlserver://DESKTOP-ADI2GPO\\Bruger:1433;databaseName=VIATalks;";
 
-    //LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020
 
-    private TicketHandler ticketHandler;
-    private IEventCategoryHandler eventCategoryHandler;
-    private IHostHandler hostHandler;
-    private IRoomHandler roomHandler;
-    private IScheduleHandler scheduleHandler;
+    private EventCategoryHandler eventCategoryHandler = EventCategoryHandler.getInstance();
+    private HostHandler hostHandler = HostHandler.getInstance();
+    private RoomHandler roomHandler = RoomHandler.getInstance();
+    private ScheduleHandler scheduleHandler = ScheduleHandler.getInstance();
+    private TicketHandler ticketHandler = TicketHandler.getInstance();
 
-    //Constructor
-    public EventHandler() {
-        ticketHandler = new TicketHandler(); //!! make singleton for handlers !!
-        eventCategoryHandler = new EventCategoryHandler(); //!! make singleton for handlers !!
-        hostHandler = new HostHandler(); //!! make singleton for handlers !!
-        roomHandler = new RoomHandler(); //!! make singleton for handlers !!
-        scheduleHandler = new ScheduleHandler(); //!! make singleton for handlers !!
+    //implementing singleton
+    private static EventHandler instance;
+    private static Lock lock = new ReentrantLock();
 
+    //private constructor for singleton implementation
+    private EventHandler() {
         LocalDateTime now = LocalDateTime.now();
         List<Event> events = getUpcomingEvents(now);
         if(events.size() < 1){
             createEvent(new Event(
                     1,
-                    "Educational",
+                    "Tuition",
                     "How to be cool",
                     now.plusHours(36),
                     now.plusHours(38),
-                    100,
+                    30,
                     25,
                     new Host(
                             1,
@@ -51,22 +50,30 @@ public class EventHandler implements IEventHandler {
                             "22667902"),
                     new Room(
                             1,
-                            301,
-                            '3',
-                            100,
+                            103,
+                            'C',
+                            30,
                             45),
                     new Campus(
                             1,
                             "Horsens",
                             8700,
-                            "School Address")));
+                            "Chr M Østergaards Vej 4")));
         }
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString, "VIATalks_Admin", "Password");
+    //getInstance method for singleton implementation
+    public static EventHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new EventHandler();
+                }
+            }
+        }
+        return instance;
     }
+
 
     public List<Event> getUpcomingEvents(LocalDateTime date) {
         List<Event> events = new ArrayList<>(); //holds events
@@ -75,7 +82,10 @@ public class EventHandler implements IEventHandler {
 
         //checking date is not null
         if(date != null) {
-            try (Connection connection = getConnectionToDB()) {
+            // Acquire read from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireRead();
+
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
                 statement = connection.prepareStatement("select e.EventID, e.EventName, e.StartDate, e.EndDate, e.NumberOfSeats, ec.Name, \n" +
@@ -130,11 +140,17 @@ public class EventHandler implements IEventHandler {
                     events.add(event);
 
                 }
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
 
                 return events;
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
+
                 return null;
 
             } finally {
@@ -158,12 +174,15 @@ public class EventHandler implements IEventHandler {
     }
 
     public List<Event> getAllRequestedEvents() {
+        // Acquire read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
         List<Event> events = new ArrayList<>(); //holds events
         List<Integer> categoryIds = new ArrayList<>(); //holds event category ids
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement(" select pe.PendingEventID, pe.EventName, pe.StartDate, pe.EndDate, pe.NumberOfSeats, ec.Name, " +
                     "h.HostID, h.FirstName, h.LastName, h.Email, h.Telephone,\n" +
@@ -203,10 +222,17 @@ public class EventHandler implements IEventHandler {
                 //add new event to events list
                 events.add(event);
             }
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return events;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
 
         } finally {
@@ -226,11 +252,14 @@ public class EventHandler implements IEventHandler {
     }
 
     public List<Event> getEventsBookedInRooms(int scheduleID, LocalDateTime date) {
+        // Acquire read from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireRead();
+
         List<Event> events = new ArrayList<>(); //holds events
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             statement = connection.prepareStatement("select e.EventID, e.EventName, e.StartDate, e.EndDate, e.NumberOfSeats, ec.Name,\n" +
@@ -269,10 +298,17 @@ public class EventHandler implements IEventHandler {
                 //add new event to events list
                 events.add(event);
             }
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return events;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
 
         } finally {
@@ -292,11 +328,14 @@ public class EventHandler implements IEventHandler {
     }
 
     public boolean createEvent(Event event) {
+        // Acquire writefrom synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         int eventID = 0;
         PreparedStatement statement = null;
         ResultSet rs = null;
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             //checking if event category and event name and start date and host, room, schedule are valid
@@ -314,6 +353,9 @@ public class EventHandler implements IEventHandler {
 
                 statement.executeUpdate();
                 rs = statement.getGeneratedKeys();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
 
                 if (rs.next()) {
                     eventID = rs.getInt(1);
@@ -352,6 +394,10 @@ public class EventHandler implements IEventHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
 
         } finally {
@@ -371,11 +417,14 @@ public class EventHandler implements IEventHandler {
     }
 
     public boolean requestEvent(Event event) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         int eventID = 0;
         PreparedStatement statement = null;
         ResultSet rs = null;
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
             DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             //checking if event category, event name, start date and host, campus are valid
@@ -393,6 +442,9 @@ public class EventHandler implements IEventHandler {
 
                 statement.executeUpdate();
                 rs = statement.getGeneratedKeys();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
 
                 if (rs.next()) {
                     eventID = rs.getInt(1);
@@ -426,6 +478,10 @@ public class EventHandler implements IEventHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
 
         } finally {
@@ -448,9 +504,12 @@ public class EventHandler implements IEventHandler {
 
         //checking if event is not null
         if(event != null) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
             PreparedStatement statement = null;
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 DateTimeFormatter mssqlDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
                 statement = connection.prepareStatement("update dbo.Event set EventName = ?,StartDate = ?, EndDate = ?, NumberOfSeats = ? " +
@@ -462,6 +521,10 @@ public class EventHandler implements IEventHandler {
                 statement.setInt(5, event.getId());
 
                 int rowsAffected = statement.executeUpdate();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 if (rowsAffected > 0) {
                     return true;
                 }
@@ -469,6 +532,10 @@ public class EventHandler implements IEventHandler {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return false;
 
             } finally {
@@ -485,15 +552,25 @@ public class EventHandler implements IEventHandler {
     }
 
     public boolean deleteEvent(int id) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null;
 
-        try (Connection connection = getConnectionToDB()) {
+        //deleting tickets stored for the vent in the db
+        ticketHandler.deleteTicketsForEvent(id);
+
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("delete from dbo.Event where EventID = ?");
             statement.setInt(1, id);
 
             int rowsAffected = statement.executeUpdate();
+
             if (rowsAffected > 0) {
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return true;
             } else {
                 throw new Exception("No such event with id:" + id);
@@ -501,6 +578,10 @@ public class EventHandler implements IEventHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)
@@ -513,15 +594,22 @@ public class EventHandler implements IEventHandler {
     }
 
     public boolean deletePendingEvent(int id) {
+        // Acquire write from synchronization monitor
+        SynchronizationMonitor.getInstance().acquireWrite();
+
         PreparedStatement statement = null;
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
             statement = connection.prepareStatement("delete from dbo.PendingEvent where PendingEventID = ?");
             statement.setInt(1, id);
 
             int rowsAffected = statement.executeUpdate();
+
             if (rowsAffected > 0) {
+                // Release write from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseWrite();
+
                 return true;
             } else {
                 throw new Exception("No such pending event with id:" + id);
@@ -529,6 +617,10 @@ public class EventHandler implements IEventHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release write from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseWrite();
+
             return false;
         } finally {
             if (statement != null)

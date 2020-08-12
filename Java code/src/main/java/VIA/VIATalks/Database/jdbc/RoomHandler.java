@@ -9,29 +9,42 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RoomHandler implements IRoomHandler {
+    //implementing singleton
+    private static RoomHandler instance;
+    private static Lock lock = new ReentrantLock();
 
-    //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    //private constructor for singleton implementation
+    private RoomHandler() {
 
-    //Constructor
-    public RoomHandler() {
     }
 
-    //Establish connection to db and return it
-    private Connection getConnectionToDB() throws SQLException {
-        return DriverManager.getConnection(dbConnectionString);
+    //getInstance method for singleton implementation
+    public static RoomHandler getInstance() {
+        if(instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new RoomHandler();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<Room> getRoomsForCampus(Campus campus) {
         //checking if campus in not null
         if (campus != null) {
+            // Acquire read from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireRead();
+
             List<Room> rooms = new ArrayList<>(); //holds rooms
             PreparedStatement statement = null; //statement to execute db query
             ResultSet rs = null; //result set to get from executing db query
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 statement = connection.prepareStatement("select * from Room where CampusID = ?");
                 statement.setInt(1, campus.getId());
                 rs = statement.executeQuery();
@@ -48,10 +61,17 @@ public class RoomHandler implements IRoomHandler {
                     rooms.add(new Room(id, roomNumber, block, capacity, area));
                 }
 
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
+
                 return rooms;
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Release read from synchronization monitor
+                SynchronizationMonitor.getInstance().releaseRead();
+
                 return null;
             } finally {
                 if (statement != null)
@@ -76,7 +96,10 @@ public class RoomHandler implements IRoomHandler {
         PreparedStatement statement = null; //statement to execute db query
         ResultSet rs = null; //result set to get from executing db query
 
-        try (Connection connection = getConnectionToDB()) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
+            // Acquire read from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireRead();
+
             statement = connection.prepareStatement("select * from Room where CampusID = ?");
             statement.setInt(1, campus.getId());
             rs = statement.executeQuery();
@@ -93,10 +116,17 @@ public class RoomHandler implements IRoomHandler {
                 rooms.add(new Room(id,roomNumber,block,capacity,area));
             }
 
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return rooms;
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            // Release read from synchronization monitor
+            SynchronizationMonitor.getInstance().releaseRead();
+
             return null;
         } finally {
             if (statement != null)
@@ -120,25 +150,35 @@ public class RoomHandler implements IRoomHandler {
 
         //checking if capacity of the room allows to hold event with provided number of seats
         if (room.getCapacity() >= numberOfSeats) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
             roomID = getRoomIdByBlockRoomNumber(room.getBlock(), room.getRoomNumber());
 
             //checking if provided room exists in db
             if (roomID > 0) {
                 room.setId(roomID); //setting id found in db
 
-                try (Connection connection = getConnectionToDB()) {
+                try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                     statement = connection.prepareStatement("update Event set RoomID = ? where EventID = ?");
 
                     statement.setInt(1, room.getId());
                     statement.setInt(2, eventId);
                     int rowsAffected = statement.executeUpdate();
                     if (rowsAffected > 0) {
+                        // Acquire write from synchronization monitor
+                        SynchronizationMonitor.getInstance().acquireWrite();
+
                         return true;
                     }
                     throw new Exception("Couldn't find existing event with eventId:" + eventId);
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
+                    // Acquire write from synchronization monitor
+                    SynchronizationMonitor.getInstance().acquireWrite();
+
                     return false;
                 } finally {
                     if (statement != null)
@@ -171,7 +211,7 @@ public class RoomHandler implements IRoomHandler {
         ResultSet rs = null; //result set to get from executing db query
 
         if (Character.isLetter(block) && roomNumber > 0) {
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
                 statement = connection.prepareStatement("select RoomID from Room where Block = ? and RoomNumber = ?");
                 statement.setString(1, block + "");
                 statement.setInt(2, roomNumber);
@@ -215,9 +255,12 @@ public class RoomHandler implements IRoomHandler {
     public boolean updateRoom(Event event, int roomId) {
         //checking if event is not null
         if (event != null) {
+            // Acquire write from synchronization monitor
+            SynchronizationMonitor.getInstance().acquireWrite();
+
             PreparedStatement statement = null; //statement to execute db query
 
-            try (Connection connection = getConnectionToDB()) {
+            try (Connection connection = DatabaseConnection.getInstance().getConnectionToDB()) {
 
                 statement = connection.prepareStatement("update dbo.Event set RoomID = ? where EventID = ?");
                 statement.setInt(1, roomId);
@@ -225,6 +268,9 @@ public class RoomHandler implements IRoomHandler {
 
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
+                    // Release write from synchronization monitor
+                    SynchronizationMonitor.getInstance().releaseWrite();
+
                     return true;
                 } else {
                     throw new Exception("Couldn't find event with id:" + event.getId() + " or roomId:" + roomId + " is wrong");
@@ -232,6 +278,10 @@ public class RoomHandler implements IRoomHandler {
 
             } catch (Exception e) {
                 e.printStackTrace();
+
+                // Acquire write from synchronization monitor
+                SynchronizationMonitor.getInstance().acquireWrite();
+
                 return false;
 
             } finally {

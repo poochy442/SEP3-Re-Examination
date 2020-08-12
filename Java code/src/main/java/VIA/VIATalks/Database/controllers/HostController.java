@@ -15,7 +15,7 @@ public class HostController {
     private IHostHandler handler;  //DAO for events
 
     public HostController() {
-        handler = new HostHandler();
+        handler = HostHandler.getInstance();
     }
 
     //GET: host/all
