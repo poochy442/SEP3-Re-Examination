@@ -37,7 +37,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> AddEvent(
+        public async Task<bool> AddEvent(
             [FromBody] Event e)
         {
             // TODO: Query Database
@@ -46,7 +46,7 @@ namespace Server.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<bool>> EditEvent(
+        public async Task<bool> EditEvent(
             [FromQuery] int id,
             [FromBody] Event e)
         {
@@ -55,11 +55,19 @@ namespace Server.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> CancelEvent(
+        public async Task<bool> CancelEvent(
             [FromQuery] int id)
         {
             Console.WriteLine("CancelEvent called");
             return await Adapter.CancelEvent(id);
+        }
+
+        [HttpPost("/request")]
+        public async Task<bool> RequestEvent(
+            [FromBody] List<string> eventRequest)
+        {
+            Console.WriteLine("RequestEvent called");
+            return await Adapter.RequestEvent(eventRequest);
         }
 
     }
