@@ -37,41 +37,45 @@ namespace Server.Adapter
         public async Task<List<Event>> GetEvents()
         {
             HttpResponseMessage rm = await Http.GetAsync("event/upcoming");
-            String json = await rm.Content.ReadAsStringAsync();
+            string json = await rm.Content.ReadAsStringAsync();
             return events = JsonConvert.DeserializeObject<List<Event>>(json);
         }
 
         public async Task<Event> GetEvent(int id)
         {
-            await GetEvents();
-            foreach (Event e in events)
-            {
-                if (e.Id == id)
-                    return e;
-            }
-
-            return null;
+            // TODO: Fix query
+            HttpResponseMessage rm = await Http.GetAsync($"event?id={id}");
+            string json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Event>(json);
         }
 
-        public async Task<ActionResult<bool>> AddEvent(Event e)
+        public async Task<bool> AddEvent(Event e)
         {
-            HttpResponseMessage rm = await Http.PostAsync("create", new StringContent(JsonConvert.SerializeObject(e)));
-            String json = await rm.Content.ReadAsStringAsync();
+            HttpResponseMessage rm = await Http.PostAsync("event/create", new StringContent(JsonConvert.SerializeObject(e)));
+            string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
         }
 
-        public async Task<ActionResult<bool>> EditEvent(int id, Event e)
+        public async Task<bool> EditEvent(int id, Event e)
         {
-            HttpResponseMessage rm = await Http.PutAsync("update", new StringContent(JsonConvert.SerializeObject(e)));
-            String json = await rm.Content.ReadAsStringAsync();
+            HttpResponseMessage rm = await Http.PutAsync($"event/edit?id={id}", new StringContent(JsonConvert.SerializeObject(e)));
+            string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
         }
 
-        public async Task<ActionResult<bool>> CancelEvent(int id)
+        public async Task<bool> CancelEvent(int id)
         {
-            HttpResponseMessage rm = await Http.DeleteAsync($"delete?id={id}");
-            String json = await rm.Content.ReadAsStringAsync();
+            HttpResponseMessage rm = await Http.DeleteAsync($"event/delete?id={id}");
+            string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
         }
+
+        public async Task<bool> RequestEvent(List<string> eventRequest)
+        {
+            HttpResponseMessage rm = await Http.PostAsync("event/request", new StringContent(JsonConvert.SerializeObject(eventRequest)));
+            string json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<bool>(json);
+        }
+
     }
 }
