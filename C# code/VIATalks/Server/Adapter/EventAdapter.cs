@@ -19,13 +19,16 @@ namespace Server.Adapter
             events = new List<Event>
             {
                 // Mock data
+                // TODO: Update data
                 new Event(
                     1,
                     "How to be cool",
                     "Educational",
                     DateTime.Now,
                     DateTime.Now.AddHours(2),
-                    new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"))
+                    new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"),
+                    new Room(1, 301, 'E', 100, 60),
+                    new Campus(1, "Horsens", 8700, "CampusAdress"))
             };
             events[0].NumberOfSeats = 50;
             Http = new HttpClient { BaseAddress = new Uri("http://localhost:8080/") };

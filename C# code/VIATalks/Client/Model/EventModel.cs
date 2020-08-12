@@ -25,12 +25,13 @@ namespace Client.Model
         public int NumberOfSeats { get; set; }
         [DefaultValue(0)]
         public int RegisteredUsers { get; set; }
-        // [Required]
         public Event.EventHost Host { get; set; }
+        public Room Room { get; set; }
+        public Campus Campus { get; set; }
 
         public Event GetEvent()
         {
-            return new Event(-1, EventName, Category, StartTime, EndTime, Host);
+            return new Event(-1, EventName, Category, StartTime, EndTime, Host, Room, Campus);
         }
         public void SetEvent(Event e)
         {
@@ -42,6 +43,8 @@ namespace Client.Model
             NumberOfSeats = e.NumberOfSeats;
             RegisteredUsers = e.RegisteredUsers;
             Host = e.Host;
+            Room = e.Room;
+            Campus = e.Campus;
         }
     }
 }

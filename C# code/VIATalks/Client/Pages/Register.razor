@@ -1,0 +1,72 @@
+﻿@page "/register"
+@using Client.Security
+@inject UserManager User
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<h1>Create a new account</h1>
+
+<EditForm @onsubmit="CreateUser">
+    <p>
+        <label>
+            Email:
+            <InputText @bind-Value="Email" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Password:
+            <InputText @bind-Value="Password" />
+        </label>
+    </p>
+
+    <button type="submit">Create account</button>
+
+    <p style="color:red">@ErrorMessage</p>
+</EditForm>
+
+@code {
+    private string Email { get; set; }
+    private string Password { get; set; }
+    private string ErrorMessage { get; set; }
+
+    public async Task CreateUser()
+    {
+        if (Email != null || Email == "")
+        {
+            ErrorMessage = "You must input username";
+            Password = "";
+            return;
+        }
+
+        if (Password != null || Password == "")
+        {
+            ErrorMessage = "You must input password";
+            Password = "";
+            return;
+        }
+
+        // TODO: Verify email
+        HttpResponseMessage rm = await Http.PostAsJsonAsync<UserManager.User>("user/create", new UserManager.User(Email, Password));
+        List<bool> signedUp = await rm.Content.ReadFromJsonAsync<List<bool>>();
+
+        if (signedUp[0])
+        {
+            ErrorMessage = "Could not create account";
+            Password = "";
+            return;
+        }
+
+        User.LoggedIn = true;
+        if (signedUp[1])
+        {
+            User.Access = UserManager.UserPrivilege.Admin;
+        }
+        else
+        {
+            User.Access = UserManager.UserPrivilege.User;
+        }
+
+        UriHelper.NavigateTo("schedule");
+    }
+}

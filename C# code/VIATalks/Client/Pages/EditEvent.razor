@@ -1,8 +1,6 @@
 ﻿@page "/edit_event/{EventId:int}"
-@using DataClasses
 @using Client.Model
 @using System.Net.Http
-@using Newtonsoft.Json
 @inject HttpClient Http
 @inject NavigationManager UriHelper
 
@@ -47,6 +45,98 @@
         </label>
     </p>
 
+    <!-- Rooms -->
+    <h2>Room:</h2>
+    @if (Rooms.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Block</th>
+                    <th>Capacity</th>
+                    <th>Area</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Room r in Rooms)
+                {
+                    @if (r.Equals(eventModel.Room))
+                    {
+                        <tr style="background-color:green">
+                            <td>@r.RoomNumber</td>
+                            <td>@r.Block</td>
+                            <td>@r.Capacity</td>
+                            <td>@r.Area</td>
+                            <td><a href="edit_room/@r.Id">Edit</a></td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@r.RoomNumber</td>
+                            <td>@r.Block</td>
+                            <td>@r.Capacity</td>
+                            <td>@r.Area</td>
+                            <td><a href="edit_room/@r.Id">Edit</a></td>
+                            <td><button @onclick="@(e => eventModel.Room = r)">Select</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Loading rooms...</p>
+    }
+
+    <!-- Campus -->
+    <h2>Campus</h2>
+    @if (Campuses.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Postal Code</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Campus c in Campuses)
+                {
+                    @if (c.Equals(eventModel.Campus))
+                    {
+                        <tr style="background-color:green">
+                            <td>@c.City</td>
+                            <td>@c.PostalCode</td>
+                            <td>@c.Address</td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@c.City</td>
+                            <td>@c.PostalCode</td>
+                            <td>@c.Address</td>
+                            <td><button @onclick="@(e => eventModel.Campus = c)">Select</button></td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Loading campuses...</p>
+    }
     <button type="submit">Submit</button>
     <button @onclick="CancelEvent">Delete Event</button>
 
@@ -62,12 +152,29 @@
 
     private Event EventEdit { get; set; }
 
+    public List<Room> Rooms { get; set; } = new List<Room>();
+    public static Room TestRoom { get; set; } = new Room(1, 301, 'E', 100, 60);
+    public List<Campus> Campuses { get; set; } = new List<Campus>();
+    public static Campus TestCampus { get; set; } = new Campus(1, "Horsens", 8700, "CampusAdress");
+    public static Event TestEvent { get; set; } = new Event(
+                    1,
+                    "How to be cool",
+                    "Educational",
+                    DateTime.Now,
+                    DateTime.Now.AddHours(2),
+                    new Event.EventHost("Kenneth", "Jensen", "123@abc.com", "12345678"),
+                    TestRoom,
+                    TestCampus);
+
     protected override async Task OnInitializedAsync()
     {
         List<Event> events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
         EventEdit = events[0];
         eventModel.SetEvent(EventEdit);
         editContext = new EditContext(eventModel);
+
+        await GetRooms();
+        await GetCampuses();
     }
 
     private async Task HandleValidSubmit()
@@ -76,7 +183,7 @@
 
         if (isValid)
         {
-            Console.WriteLine("IsValid\n");
+            Console.WriteLine("IsValid");
             HttpResponseMessage rm = await Http.PutAsJsonAsync<Event>($"event?id={EventId}", eventModel.GetEvent());
             try
             {
@@ -95,9 +202,22 @@
         }
     }
 
+    private async Task GetRooms()
+    {
+        Console.WriteLine("GetRooms called");
+        Rooms = await Http.GetFromJsonAsync<List<Room>>("room");
+    }
+
+    private async Task GetCampuses()
+    {
+        Console.WriteLine("GetCampuses called");
+        Campuses = await Http.GetFromJsonAsync<List<Campus>>("campus");
+    }
+
     private async Task CancelEvent()
     {
-        Console.WriteLine("CancelEvent called\n");
+        Console.WriteLine("CancelEvent called");
         HttpResponseMessage rm = await Http.DeleteAsync($"event?id={EventId}");
+        rm.EnsureSuccessStatusCode();
     }
 }
