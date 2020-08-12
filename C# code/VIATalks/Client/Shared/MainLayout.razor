@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@using Client.Security 
+@inject UserManager User
 
 <div class="sidebar">
     <NavMenu />
@@ -6,7 +8,13 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        @if (User.LoggedIn)
+        {
+            <p>@User.Access</p>
+        } else {
+            <a href="login">Login</a>
+            <a href="register">Register</a>
+        }
     </div>
 
     <div class="content px-4">

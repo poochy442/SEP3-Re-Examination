@@ -1,0 +1,53 @@
+﻿@page "/room"
+@using System.Net.Http
+@inject HttpClient Http
+
+<h1>Rooms</h1>
+
+@if (events.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Block</th>
+                <th>Capacity</th>
+                <th>Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DataClasses.Room r in events)
+            {
+                <tr>
+                    <td>@r.RoomNumber</td>
+                    <td>@r.Block</td>
+                    <td>@r.Capacity</td>
+                    <td>@r.Area</td>
+                    <!-- TODO: Authentication-->
+                    <td><a href="edit_room/@r.Id">Edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<a href="new_event">New Event</a>
+
+@code {
+    List<DataClasses.Room> events = new List<DataClasses.Room>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetRooms();
+    }
+
+    private async Task GetRooms()
+    {
+        events = await Http.GetFromJsonAsync<List<DataClasses.Room>>("room");
+    }
+
+}

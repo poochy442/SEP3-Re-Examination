@@ -30,6 +30,8 @@ namespace DataClasses
         public int NumberOfSeats { get; set; }
         public int RegisteredUsers { get; set; }
         public EventHost Host { get; set; }
+        public Room Room { get; set; }
+        public Campus Campus { get; set; }
         public enum CATEGORIES
         {
             Educational,
@@ -46,7 +48,9 @@ namespace DataClasses
             String category,
             DateTime startTime,
             DateTime endTime,
-            EventHost host)
+            EventHost host,
+            Room room,
+            Campus campus)
         {
             Id = id;
             Category = category;
@@ -54,6 +58,8 @@ namespace DataClasses
             StartTime = startTime;
             EndTime = endTime;
             Host = host;
+            Room = room;
+            Campus = campus;
         }
 
         public override string ToString()

@@ -1,0 +1,100 @@
+﻿@page "/edit_room/{RoomId:int}"
+@using DataClasses
+@using Client.Model
+@using System.Net.Http
+@using Newtonsoft.Json
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<h1>Edit Room</h1>
+
+<EditForm Model="@roomModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@roomModel" />
+    <p>
+        <label>
+            Room Number
+            <InputNumber id="roomNumber" @bind-Value="roomModel.RoomNumber" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Block
+            <InputSelect id="block" @bind-Value="roomModel.Block">
+                <option value="">Select Block</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+            </InputSelect>
+        </label>
+    </p>
+    <p>
+        <label>
+            Capacity
+            <InputNumber id="capacity" @bind-Value="roomModel.Capacity" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Area
+            <InputNumber id="area" @bind-Value="roomModel.Area" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+    <button @onclick="DeleteRoom">Delete Room</button>
+
+    <p id="errorMessage"></p>
+</EditForm>
+@code {
+    [Parameter]
+    public int RoomId { get; set; }
+
+    private RoomModel roomModel = new RoomModel();
+    private EditContext editContext;
+
+    private Room RoomEdit { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<Room> rooms = await Http.GetFromJsonAsync<List<Room>>($"room?id={RoomId}");
+        RoomEdit = rooms[0];
+        roomModel.SetRoom(RoomEdit);
+        editContext = new EditContext(roomModel);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var isValid = editContext.Validate();
+
+        if (isValid)
+        {
+            Console.WriteLine("IsValid\n");
+            HttpResponseMessage rm = await Http.PutAsJsonAsync<Room>($"room?id={RoomId}", roomModel.GetRoom());
+            try
+            {
+                rm.EnsureSuccessStatusCode();
+                UriHelper.NavigateTo("room");
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message + "\n" + e.StackTrace);
+                // Display error
+            }
+        }
+        else
+        {
+            Console.WriteLine("IsNotValid");
+        }
+    }
+
+    private async Task DeleteRoom()
+    {
+        Console.WriteLine("DeleteRoom called\n");
+        HttpResponseMessage rm = await Http.DeleteAsync($"room?id={RoomId}");
+    }
+}

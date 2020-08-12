@@ -1,7 +1,9 @@
 ﻿@page "/schedule"
 @using DataClasses
 @using System.Net.Http
+@using Client.Security
 @inject HttpClient Http
+@inject UserManager User
 
 <h1>Scheduled events</h1>
 
@@ -16,6 +18,7 @@
                 <th>End time</th>
                 <th>Capacity</th>
                 <th>Registered Users</th>
+                <th>Room Number</th>
             </tr>
         </thead>
         <tbody>
@@ -28,11 +31,21 @@
                     <td>@e.EndTime</td>
                     <td>@e.NumberOfSeats</td>
                     <td>@e.RegisteredUsers</td>
-                    <!-- TODO: Authentication-->
-                    <td><a href="edit_event/@e.Id">Edit</a></td>
-                    @if (e.NumberOfSeats > e.RegisteredUsers)
+                    <td>@e.Room.RoomNumber</td>
+                    @if (User.Access == UserManager.UserPrivilege.Admin)
                     {
-                        <td><button @onclick="@(a => SignUp(e))">Sign Up</button></td>
+                        <td><a href="edit_event/@e.Id">Edit</a></td>
+                    }
+                    else
+                    {
+                        @if (e.NumberOfSeats > e.RegisteredUsers)
+                        {
+                            <td><button @onclick="@(a => SignUp(e))">Sign Up</button></td>
+                        }
+                        else
+                        {
+                            <td>Full</td>
+                        }
                     }
                 </tr>
             }
@@ -44,7 +57,13 @@ else
     <p>Loading...</p>
 }
 
-<a href="new_event">New Event</a>
+@if (User.Access == UserManager.UserPrivilege.Admin)
+{
+    <a href="new_event">New Event</a>
+} else
+{
+    <a href="request">Request Event</a>
+}
 
 @code {
     List<Event> events = new List<Event>();
@@ -64,15 +83,6 @@ else
     {
         e.RegisteredUsers++;
         await GetEvents();
-
-        /* TODO: Fix
-        bool confirmed = await JsRuntime.InvokeAsync<bool>("Confirm", "Are you sure?");
-        if (confirmed)
-        {
-            e.RegisteredUsers++;
-            await GetEvents();
-        }
-        */
     }
 
 }
