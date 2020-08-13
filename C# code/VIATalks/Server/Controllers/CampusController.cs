@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Adapter;
-using Shared;
+using DataClasses;
 
 namespace Server.Controllers
 {

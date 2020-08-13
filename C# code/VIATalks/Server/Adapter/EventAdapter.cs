@@ -43,39 +43,53 @@ namespace Server.Adapter
 
         public async Task<Event> GetEvent(int id)
         {
-            // TODO: Fix query
             HttpResponseMessage rm = await Http.GetAsync($"event?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Event>(json);
+            List<Event> events = JsonConvert.DeserializeObject<List<Event>>(json);
+
+            foreach(Event e in events)
+            {
+                if(e.Id == id)
+                {
+                    return e;
+                }
+            }
+            return null;
         }
 
         public async Task<bool> AddEvent(Event e)
         {
             HttpResponseMessage rm = await Http.PostAsync("event/create", new StringContent(JsonConvert.SerializeObject(e)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> EditEvent(int id, Event e)
         {
             HttpResponseMessage rm = await Http.PutAsync($"event/edit?id={id}", new StringContent(JsonConvert.SerializeObject(e)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> CancelEvent(int id)
         {
             HttpResponseMessage rm = await Http.DeleteAsync($"event/delete?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
+        }
+
+        public async Task<List<Event>> GetRequests()
+        {
+            HttpResponseMessage rm = await Http.GetAsync("event/request/all");
+            string json = await rm.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<Event>>(json);
         }
 
         public async Task<bool> RequestEvent(List<string> eventRequest)
         {
             HttpResponseMessage rm = await Http.PostAsync("event/request", new StringContent(JsonConvert.SerializeObject(eventRequest)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
-
     }
 }

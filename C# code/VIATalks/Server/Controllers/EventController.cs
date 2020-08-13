@@ -23,7 +23,6 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<List<Event>> GetEvents()
         {
-            // TODO: Query Database
             Console.WriteLine("GetEvents called");
             return await Adapter.GetEvents();
         }
@@ -60,6 +59,28 @@ namespace Server.Controllers
         {
             Console.WriteLine("CancelEvent called");
             return await Adapter.CancelEvent(id);
+        }
+
+        [HttpGet("/request")]
+        public async Task<List<Event>> GetRequests()
+        {
+            Console.WriteLine("GetRequests called");
+            return await Adapter.GetRequests();
+        }
+
+        [HttpGet("/request")]
+        public async Task<Event> GetRequest(
+            [FromQuery] int id)
+        {
+            List<Event> events = await GetRequests();
+            foreach(Event e in events)
+            {
+                if(e.Id == id)
+                {
+                    return e;
+                }
+            }
+            return null;
         }
 
         [HttpPost("/request")]

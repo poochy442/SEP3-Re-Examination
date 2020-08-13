@@ -16,7 +16,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class EventHandler implements IEventHandler {
     //connection string to db
-   //private final String dbConnectionString = "jdbc:sqlserver://DESKTOP-ADI2GPO\\Bruger:1433;databaseName=VIATalks;";
 
 
     private EventCategoryHandler eventCategoryHandler = EventCategoryHandler.getInstance();
@@ -31,6 +30,7 @@ public class EventHandler implements IEventHandler {
 
     //private constructor for singleton implementation
     private EventHandler() {
+        /*
         LocalDateTime now = LocalDateTime.now();
         List<Event> events = getUpcomingEvents(now);
         if(events.size() < 1){
@@ -60,6 +60,7 @@ public class EventHandler implements IEventHandler {
                             8700,
                             "Chr M Østergaards Vej 4")));
         }
+         */
     }
 
     //getInstance method for singleton implementation

@@ -1,4 +1,7 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using Client.Security 
+@inject UserManager User 
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Client</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -18,9 +21,12 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
+            @if (User.Access == UserManager.UserPrivilege.Admin)
+            {
             <NavLink class="nav-link" href="request_event">
-                <span class="oi oi-plus" aria-hidden="true"></span> Request Event
+                <span class="oi oi-plus" aria-hidden="true"></span> Event Requests
             </NavLink>
+            }
         </li>
     </ul>
 </div>

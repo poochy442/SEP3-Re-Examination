@@ -1,45 +1,73 @@
 ﻿@page "/request"
+@using Client.Security
+@inject UserManager User
 @inject HttpClient Http
 @inject NavigationManager UriHelper
 
-<h1>Request Event</h1>
+@if (User.Access == UserManager.UserPrivilege.Admin)
+{
+    @GetEventRequests()
+    <table>
+        <thead>
+            <tr>
+                <td>Event Name</td>
+                <td>Category</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Event e in EventRequests)
+            {
+                <tr>
+                    <td>@e.EventName</td>
+                    <td>@e.Category</td>
+                    <td><button @onclick="() => AcceptEvent(e)"></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>Request Event</h1>
 
-<EditForm onsubmit="HandleSubmit">
-    <p>
-        <label>
-            Event Name:
-            <InputText id="eventName" @bind-Value="EventName" />
-        </label>
-    </p>
-    <p>
-        <label>
-            Event Category:
-            <InputSelect id="category" @bind-Value="Category">
-                <option value="">Select Category</option>
-                <option value="Educational">@Event.CATEGORIES.Educational</option>
-                <option value="Entertainment">@Event.CATEGORIES.Entertainment</option>
-            </InputSelect>
-        </label>
-    </p>
+    <EditForm onsubmit="HandleSubmit">
+        <p>
+            <label>
+                Event Name:
+                <InputText id="eventName" @bind-Value="EventName" />
+            </label>
+        </p>
+        <p>
+            <label>
+                Event Category:
+                <InputSelect id="category" @bind-Value="Category">
+                    <option value="">Select Category</option>
+                    <option value="Educational">@Event.CATEGORIES.Educational</option>
+                    <option value="Entertainment">@Event.CATEGORIES.Entertainment</option>
+                </InputSelect>
+            </label>
+        </p>
 
-    <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
 
-    <p style="color:red">@ErrorMessage</p>
-</EditForm>
+        <p style="color:red">@ErrorMessage</p>
+    </EditForm>
+}
 
 @code {
     private string EventName { get; set; }
     private string Category { get; set; }
     private string ErrorMessage { get; set; } = "";
+    private List<Event> EventRequests { get; set; }
 
     private async Task HandleSubmit()
     {
-        if(EventName == null || EventName == "")
+        if (EventName == null || EventName == "")
         {
             ErrorMessage = "Must input event name";
             return;
         }
-        if(Category == null || Category == "")
+        if (Category == null || Category == "")
         {
             ErrorMessage = "Must select category";
             return;
@@ -48,5 +76,15 @@
         HttpResponseMessage rm = await Http.PostAsJsonAsync<List<string>>("event/request", new List<string> { EventName, Category });
         rm.EnsureSuccessStatusCode();
         UriHelper.NavigateTo("schedule");
+    }
+
+    private async Task GetEventRequests()
+    {
+        EventRequests = await Http.GetFromJsonAsync<List<Event>>("event/request/all");
+    }
+
+    private void AcceptEvent(Event e)
+    {
+        UriHelper.NavigateTo($"edit_event/{e.Id}/{true}");
     }
 }

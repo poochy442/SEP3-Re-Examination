@@ -33,7 +33,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.GetAsync($"room?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Room>(json);
+            return JsonConvert.DeserializeObject<List<Room>>(json)[0];
         }
 
         public async Task<bool> AddRoom(Room r)
@@ -41,7 +41,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.PostAsync($"room", new StringContent(JsonConvert.SerializeObject(r)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> EditRoom(int id, Room r)
@@ -49,7 +49,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.PutAsync($"room/edit?id={id}", new StringContent(JsonConvert.SerializeObject(r)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> RemoveRoom(int id)
@@ -57,7 +57,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.DeleteAsync($"room/edit?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
     }

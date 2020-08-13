@@ -1,4 +1,5 @@
 ﻿@page "/edit_event/{EventId:int}"
+@page "/edit_event/{EventId:int}/{IsRequest:bool}"
 @using Client.Model
 @using System.Net.Http
 @inject HttpClient Http
@@ -6,7 +7,7 @@
 
 <h1>Edit Event</h1>
 
-<EditForm Model="@eventModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@eventModel" OnValidSubmit="() => HandleValidSubmit()">
     <DataAnnotationsValidator />
     <ValidationSummary Model="@eventModel" />
 
@@ -150,6 +151,9 @@
     [Parameter]
     public int EventId { get; set; }
 
+    [Parameter]
+    public bool IsRequest { get; set; } = false;
+
     private Event EventEdit { get; set; }
 
     public List<Room> Rooms { get; set; } = new List<Room>();
@@ -168,7 +172,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        List<Event> events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
+        List<Event> events;
+        if (IsRequest)
+        {
+            events = await Http.GetFromJsonAsync<List<Event>>($"event/request?id={EventId}");
+        } else
+        {
+            events = await Http.GetFromJsonAsync<List<Event>>($"event?id={EventId}");
+        }
         EventEdit = events[0];
         eventModel.SetEvent(EventEdit);
         editContext = new EditContext(eventModel);

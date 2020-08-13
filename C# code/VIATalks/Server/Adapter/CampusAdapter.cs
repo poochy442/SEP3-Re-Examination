@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Shared;
+using DataClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.GetAsync($"campus?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Campus>(json);
+            return JsonConvert.DeserializeObject<List<Campus>>(json)[0];
         }
 
         public async Task<bool> AddCampus(Campus c)
@@ -41,7 +41,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.PostAsync($"campus", new StringContent(JsonConvert.SerializeObject(c)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> EditCampus(int id, Campus c)
@@ -49,7 +49,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.PutAsync($"campus/edit?id={id}", new StringContent(JsonConvert.SerializeObject(c)));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> RemoveCampus(int id)
@@ -57,7 +57,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.DeleteAsync($"campus/edit?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<bool>(json);
+            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
     }
 }

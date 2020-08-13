@@ -24,9 +24,8 @@ namespace Server.Controllers
         [HttpGet("/login")]
         public async Task<List<bool>> Login(
             [FromQuery] string username,
-            [FromQuery] string password)
+            [FromBody] string password)
         {
-            // TODO: Fix query
             HttpResponseMessage rm = await Http.GetAsync($"user/login?username={username}&password={password}");
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json);
@@ -35,9 +34,8 @@ namespace Server.Controllers
         [HttpPost("/create")]
         public async Task<List<bool>> Register(
             [FromQuery] string username,
-            [FromQuery] string password)
+            [FromBody] string password)
         {
-            // TODO: Fix query
             HttpResponseMessage rm = await Http.PostAsync("user/create", new StringContent(username + password));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json);
