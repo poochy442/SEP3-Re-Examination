@@ -81,7 +81,7 @@ else
 
     private async Task SignUp(Event e)
     {
-        e.RegisteredUsers++;
+        await Http.GetFromJsonAsync<bool>($"event/request/signup?id={e.Id}");
         await GetEvents();
     }
 

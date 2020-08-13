@@ -6,27 +6,21 @@
 
 <h1>Login</h1>
 
-<EditForm OnSubmit="LoginAsync">
+<form @onsubmit="() => LoginAsync()">
 
     <h2>Input your credentials:</h2>
 
-    <p>
-        <label>
-            Username:
-            <InputText id="username" @bind-Value="Username" />
-        </label>
-    </p>
-    <p>
-        <label>
-            Password:
-            <InputText id="password" @bind-Value="Password" />
-        </label>
-    </p>
+    <label>Username:</label>
+    <input type="text" @bind-value="Username" />
+    <br />
+    <label>Password:</label>
+    <input type="text" @bind-value="Password" />
+    <br />
 
-    <button type="submit">Login</button>
+    <input type="submit" value="Login" />
 
     <p style="color:red">@ErrorMessage</p>
-</EditForm>
+</form>
 
 @code {
     private string Username { get; set; }

@@ -45,6 +45,99 @@
         </label>
     </p>
 
+    <!-- Rooms -->
+    <h2>Room:</h2>
+    @if (Rooms.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Block</th>
+                    <th>Capacity</th>
+                    <th>Area</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Room r in Rooms)
+                {
+                    @if (r.Equals(eventModel.Room))
+                    {
+                        <tr style="background-color:green">
+                            <td>@r.RoomNumber</td>
+                            <td>@r.Block</td>
+                            <td>@r.Capacity</td>
+                            <td>@r.Area</td>
+                            <td><a href="edit_room/@r.Id">Edit</a></td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@r.RoomNumber</td>
+                            <td>@r.Block</td>
+                            <td>@r.Capacity</td>
+                            <td>@r.Area</td>
+                            <td><a href="edit_room/@r.Id">Edit</a></td>
+                            <td><button @onclick="@(e => eventModel.Room = r)">Select</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Loading rooms...</p>
+    }
+
+    <!-- Campus -->
+    <h2>Campus</h2>
+    @if (Campuses.Count > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Postal Code</th>
+                    <th>Address</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Campus c in Campuses)
+                {
+                    @if (c.Equals(eventModel.Campus))
+                    {
+                        <tr style="background-color:green">
+                            <td>@c.City</td>
+                            <td>@c.PostalCode</td>
+                            <td>@c.Address</td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@c.City</td>
+                            <td>@c.PostalCode</td>
+                            <td>@c.Address</td>
+                            <td><button @onclick="@(e => eventModel.Campus = c)">Select</button></td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Loading campuses...</p>
+    }
+
     <button type="submit">Submit</button>
 
     <p id="errorMessage"></p>
@@ -53,8 +146,10 @@
 @code {
     private EventModel eventModel = new EventModel();
     private EditContext editContext;
+    private List<Room> Rooms { get; set; } = new List<Room>();
+    private List<Campus> Campuses { get; set; } = new List<Campus>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         editContext = new EditContext(eventModel);
         eventModel.Host = new Event.EventHost(
@@ -62,6 +157,9 @@
             "Jensen",
             "123@abc.com",
             "12345678");
+
+        await GetRooms();
+        await GetCampuses();
     }
 
     private async Task HandleValidSubmit()
@@ -87,5 +185,17 @@
         {
             Console.WriteLine("IsNotValid");
         }
+    }
+
+    private async Task GetRooms()
+    {
+        Console.WriteLine("GetRooms called");
+        Rooms = await Http.GetFromJsonAsync<List<Room>>("room");
+    }
+
+    private async Task GetCampuses()
+    {
+        Console.WriteLine("GetCampuses called");
+        Campuses = await Http.GetFromJsonAsync<List<Campus>>("campus");
     }
 }

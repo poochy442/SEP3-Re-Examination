@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Server.Adapter
 {
@@ -59,14 +60,15 @@ namespace Server.Adapter
 
         public async Task<bool> AddEvent(Event e)
         {
-            HttpResponseMessage rm = await Http.PostAsync("event/create", new StringContent(JsonConvert.SerializeObject(e)));
+            HttpResponseMessage rm = await Http.PostAsync("event/create", new StringContent(JsonConvert.SerializeObject(e), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
+            Console.WriteLine("Add Event return json:\n" + json);
             return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
 
         public async Task<bool> EditEvent(int id, Event e)
         {
-            HttpResponseMessage rm = await Http.PutAsync($"event/edit?id={id}", new StringContent(JsonConvert.SerializeObject(e)));
+            HttpResponseMessage rm = await Http.PutAsync($"event/edit?id={id}", new StringContent(JsonConvert.SerializeObject(e), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
@@ -87,7 +89,7 @@ namespace Server.Adapter
 
         public async Task<bool> RequestEvent(List<string> eventRequest)
         {
-            HttpResponseMessage rm = await Http.PostAsync("event/request", new StringContent(JsonConvert.SerializeObject(eventRequest)));
+            HttpResponseMessage rm = await Http.PostAsync("event/request", new StringContent(JsonConvert.SerializeObject(eventRequest), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }

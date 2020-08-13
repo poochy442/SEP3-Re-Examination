@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataClasses.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,12 +28,6 @@ namespace Server
         {
             services.AddControllers();
             services.AddCors();
-            services.AddSingleton<EventAdapter>(new EventAdapter());
-            services.AddAuthorization(config =>
-            {
-                config.AddPolicy(Policies.isAdmin, Policies.IsAdminPolicy());
-                config.AddPolicy(Policies.isUser, Policies.IsUserPolicy());
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Server.Adapter
 {
@@ -39,17 +40,17 @@ namespace Server.Adapter
         public async Task<bool> AddCampus(Campus c)
         {
             // TODO: Fix query
-            HttpResponseMessage rm = await Http.PostAsync($"campus", new StringContent(JsonConvert.SerializeObject(c)));
+            HttpResponseMessage rm = await Http.PostAsync($"campus", new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
+            return JsonConvert.DeserializeObject<bool>(json);
         }
 
         public async Task<bool> EditCampus(int id, Campus c)
         {
             // TODO: Fix query
-            HttpResponseMessage rm = await Http.PutAsync($"campus/edit?id={id}", new StringContent(JsonConvert.SerializeObject(c)));
+            HttpResponseMessage rm = await Http.PutAsync($"campus/edit?id={id}", new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
+            return JsonConvert.DeserializeObject<bool>(json);
         }
 
         public async Task<bool> RemoveCampus(int id)
@@ -57,7 +58,7 @@ namespace Server.Adapter
             // TODO: Fix query
             HttpResponseMessage rm = await Http.DeleteAsync($"campus/edit?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<List<bool>>(json)[0];
+            return JsonConvert.DeserializeObject<bool>(json);
         }
     }
 }

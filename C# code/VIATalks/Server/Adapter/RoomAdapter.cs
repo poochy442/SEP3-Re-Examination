@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Server.Adapter
@@ -39,7 +40,7 @@ namespace Server.Adapter
         public async Task<bool> AddRoom(Room r)
         {
             // TODO: Fix query
-            HttpResponseMessage rm = await Http.PostAsync($"room", new StringContent(JsonConvert.SerializeObject(r)));
+            HttpResponseMessage rm = await Http.PostAsync($"room", new StringContent(JsonConvert.SerializeObject(r), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }
@@ -47,7 +48,7 @@ namespace Server.Adapter
         public async Task<bool> EditRoom(int id, Room r)
         {
             // TODO: Fix query
-            HttpResponseMessage rm = await Http.PutAsync($"room/edit?id={id}", new StringContent(JsonConvert.SerializeObject(r)));
+            HttpResponseMessage rm = await Http.PutAsync($"room/edit?id={id}", new StringContent(JsonConvert.SerializeObject(r), Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json)[0];
         }

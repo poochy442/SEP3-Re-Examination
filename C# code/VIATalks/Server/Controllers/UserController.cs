@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace Server.Controllers
             [FromQuery] string username,
             [FromBody] string password)
         {
-            HttpResponseMessage rm = await Http.PostAsync("user/create", new StringContent(username + password));
+            HttpResponseMessage rm = await Http.PostAsync($"user/create?username={username}", new StringContent(password, Encoding.UTF8, "application/json"));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<bool>>(json);
         }

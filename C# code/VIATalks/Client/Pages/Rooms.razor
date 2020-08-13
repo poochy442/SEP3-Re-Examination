@@ -1,6 +1,8 @@
 ﻿@page "/room"
 @using System.Net.Http
+@using Client.Security
 @inject HttpClient Http
+@inject UserManager User
 
 <h1>Rooms</h1>
 
@@ -18,14 +20,16 @@
         <tbody>
             @foreach (DataClasses.Room r in events)
             {
-                <tr>
-                    <td>@r.RoomNumber</td>
-                    <td>@r.Block</td>
-                    <td>@r.Capacity</td>
-                    <td>@r.Area</td>
-                    <!-- TODO: Authentication-->
+            <tr>
+                <td>@r.RoomNumber</td>
+                <td>@r.Block</td>
+                <td>@r.Capacity</td>
+                <td>@r.Area</td>
+                @if (User.Access == UserManager.UserPrivilege.Admin)
+                {
                     <td><a href="edit_room/@r.Id">Edit</a></td>
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>

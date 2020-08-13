@@ -15,9 +15,9 @@ namespace Server.Controllers
     public class EventController : ControllerBase
     {
         private EventAdapter Adapter { get; set; }
-        public EventController(EventAdapter adapter)
+        public EventController()
         {
-            Adapter = adapter;
+            Adapter = new EventAdapter();
         }
 
         [HttpGet]
@@ -89,6 +89,14 @@ namespace Server.Controllers
         {
             Console.WriteLine("RequestEvent called");
             return await Adapter.RequestEvent(eventRequest);
+        }
+
+        [HttpGet("/request/signup")]
+        public async Task<bool> SignupForRequest(
+            [FromQuery] int id)
+        {
+            // TODO
+            return true;
         }
 
     }
