@@ -62,6 +62,7 @@ namespace Server.Controllers
             return await Adapter.CancelEvent(id);
         }
 
+        /*
         [HttpPost("/request")]
         public async Task<bool> RequestEvent(
             [FromBody] List<string> eventRequest)
@@ -69,6 +70,7 @@ namespace Server.Controllers
             Console.WriteLine("RequestEvent called");
             return await Adapter.RequestEvent(eventRequest);
         }
+        */
 
     }
 }

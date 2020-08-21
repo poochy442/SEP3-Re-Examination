@@ -12,7 +12,7 @@ import java.util.List;
 public class UniversityCampusHandler implements IUniversityCampusHandler {
 
     //connection string to db
-    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-D5VQT9SU:1433;databaseName=SEP3re;user=sep3re_admin;password=29072020";
+    private final String dbConnectionString = "jdbc:sqlserver://LAPTOP-AJ2N3MPF\\Kenne:1433;databaseName=VIATalks;user=VIATalks_Admin;password=Password";
 
 
     //Constructor

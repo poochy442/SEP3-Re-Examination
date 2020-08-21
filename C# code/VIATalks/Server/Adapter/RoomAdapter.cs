@@ -22,43 +22,76 @@ namespace Server.Adapter
 
         public async Task<List<Room>> GetRooms()
         {
-            // TODO: Fix query
+            return rooms;
+            /*
             HttpResponseMessage rm = await Http.GetAsync("room");
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<List<Room>>(json);
+            */
         }
 
         public async Task<Room> GetRoom(int id)
         {
-            // TODO: Fix query
+            foreach(Room r in rooms)
+            {
+                if(r.Id == id)
+                {
+                    return r;
+                }
+            }
+            return null;
+            /*
             HttpResponseMessage rm = await Http.GetAsync($"room?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Room>(json);
+            */
         }
 
         public async Task<bool> AddRoom(Room r)
         {
-            // TODO: Fix query
+            rooms.Add(r);
+            return true;
+            /*
             HttpResponseMessage rm = await Http.PostAsync($"room", new StringContent(JsonConvert.SerializeObject(r)));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
+            */
         }
 
         public async Task<bool> EditRoom(int id, Room r)
         {
-            // TODO: Fix query
+            for(int i = 0; i < rooms.Count; i++)
+            {
+                if(rooms[i].Id == id)
+                {
+                    rooms[i] = r;
+                    return true;
+                }
+            }
+            return false;
+            /*
             HttpResponseMessage rm = await Http.PutAsync($"room/edit?id={id}", new StringContent(JsonConvert.SerializeObject(r)));
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
+            */
         }
 
         public async Task<bool> RemoveRoom(int id)
         {
-            // TODO: Fix query
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].Id == id)
+                {
+                    rooms.RemoveAt(i);
+                    return true;
+                }
+            }
+            return false;
+            /*
             HttpResponseMessage rm = await Http.DeleteAsync($"room/edit?id={id}");
             string json = await rm.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<bool>(json);
+            */
         }
-
     }
 }

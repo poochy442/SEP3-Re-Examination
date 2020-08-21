@@ -7,3 +7,11 @@ C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netst
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.csproj.CoreCompileInputs.cache
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.dll
 C:\Users\Bruger\Documents\GitHub\SEP3_Re\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.pdb
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\DataClasses.deps.json
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\DataClasses.dll
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\bin\Debug\netstandard2.0\DataClasses.pdb
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.csprojAssemblyReference.cache
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.AssemblyInfoInputs.cache
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.AssemblyInfo.cs
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.dll
+C:\Users\kenne\Documents\GitHub\SEP3-Re-Examination\C# code\VIATalks\Shared\obj\Debug\netstandard2.0\DataClasses.pdb
